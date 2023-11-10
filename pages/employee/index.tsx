@@ -21,7 +21,7 @@ export const EmployeesPage = () => {
         <>
             <ProjectLayout
                 title={"Jobsite Management - Employees"}
-                pageDescription={"Probando github"}
+                pageDescription={"The construction tool"}
             >
             
             <>
