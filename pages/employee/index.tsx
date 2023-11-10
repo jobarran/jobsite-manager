@@ -20,7 +20,7 @@ export const EmployeesPage = () => {
     return (
         <>
             <ProjectLayout
-                title={"Jobsite Management - Prueba"}
+                title={"Jobsite Management - EMPLOYEE"}
                 pageDescription={"The construction tool"}
             >
             
