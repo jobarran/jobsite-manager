@@ -31,3 +31,16 @@ Llamara:
 ```
 http://localhost:3000/api/seed
 ```
+
+## Edit code from other computer
+
+*Recuperar codigo actualizado
+```
+git pull origin main
+```
+
+*Add, commit, pus
+```
+git add .
+git commit -m "text"
+git push origin HEAD:main
