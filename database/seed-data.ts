@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 interface SeedCompanySettings {
   employeeFields: string[],
   employeeRoles : string[];
+  userPossitions: string[];
 }
 
 interface SeedCompany {
@@ -63,7 +64,8 @@ export const initialData: SeedData = {
         createdBy: 'jbarrandeguy@gmail.com',
         settings: {
           employeeFields: ['carpenter', 'welder', 'electrician', 'painter', 'plumber', 'supervisor', 'mason', 'tiler'  ],
-          employeeRoles: ['foreman', 'craftsman', 'journeyman', 'laborer' ]
+          employeeRoles: ['foreman', 'craftsman', 'journeyman', 'laborer' ],
+          userPossitions: ['Project Leader', 'Project Manager', 'Safety']
         }
       }
     ],

@@ -20,7 +20,10 @@ export const AuthLayout:FC<PropsWithChildren<Props>> = ({children, title}) => {
                 display='flex'
                 justifyContent='center'
                 alignItems='center'
-                height='calc(100vh - 200px)'
+                height='calc(100vh)'
+                sx={{
+                    background: 'linear-gradient(144deg, rgba(255,238,239,1) 19%, rgba(250,114,102,1) 71%, rgba(53,94,159,1) 100%)'
+                }}
             >
                 { children }
             </Box>

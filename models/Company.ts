@@ -4,7 +4,8 @@ import mongoose, { Schema, model, Model } from 'mongoose'
 
 const companySubSchema = new Schema ({
     employeeFields: [{type: String, required: false}],
-    employeeRoles: [{type: String, required: false}],
+    employeeRoles : [{type: String, required: false}],
+    userPossitions: [{type: String, required: false}],
 })
 
 const companySchema = new Schema({

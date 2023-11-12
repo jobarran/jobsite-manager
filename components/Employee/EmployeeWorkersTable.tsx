@@ -1,19 +1,12 @@
-import { UiContext } from '@/context';
-import { Avatar, Box, Button, Card, CardHeader, Dialog, Divider, Grid, IconButton, InputAdornment, Modal, OutlinedInput, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { DataGrid, GridActionsCellItem, GridColDef, GridRowId, GridRowsProp, useGridApiRef } from '@mui/x-data-grid';
+import { Avatar, Box, Card, Grid, IconButton, InputAdornment, Modal, OutlinedInput, Rating, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridRowId, GridRowsProp, useGridApiRef } from '@mui/x-data-grid';
 import * as React from 'react';
-import { FC, useCallback, useContext, useEffect, useState } from 'react';
-import useSWR, { useSWRConfig } from 'swr';
+import { FC, useEffect, useState } from 'react';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import { useRouter } from 'next/router';
-import StepLabel from '@mui/material/StepLabel';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-// import { QuickSearch } from '../DataGrid';
 import dayjs from 'dayjs';
 import { getYearsBetweenDates } from '@/utils';
 import { IEmployee } from '@/interfaces';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
 import { DataGridQuickSearch } from '../DataGrid';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonIcon from '@mui/icons-material/Person';
@@ -25,39 +18,38 @@ interface Props {
 const MOBILE_COLUMNS = {
     id: true,
     name: true,
-    status: true,
+    status: false,
     project: true,
-    attendance: true,
-    score: true,
     field: true,
     role: true,
-    actions: true
+    attendance: false,
+    score: false,
+    actions: true,
   };
   const ALL_COLUMNS = {
     id: true,
     name: true,
     status: true,
     project: true,
-    attendance: true,
-    score: true,
     field: true,
     role: true,
-    actions: true
+    attendance: true,
+    score: true,
+    actions: true,
   };
  
 export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
     
     const rows: GridRowsProp  = data.map( worker => ({
-        key: worker.idNumber,
+        // key: worker.idNumber,
         id: worker.idNumber,
         name: worker.lastName + ' ' + worker.name,
         status: worker.status,
         project: worker.project,
-        attendance: '30%',
-        score: '8/10',
         field: worker.field,
         role: worker.role,
-        length: `${getYearsBetweenDates(worker.entry, dayjs().format('DD/MM/YYYY'))}`
+        attendance: '30%',
+        score: 4,
     }))
 
     const apiRef = useGridApiRef();
@@ -106,36 +98,12 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
             headerName: 'Status',
             flex: 1,
             minWidth: 70,
-            maxWidth: 150,
+            maxWidth: 100,
             editable: false,
         },
         {
             field: 'project',
             headerName: 'Project',
-            flex: 1,
-            minWidth: 70,
-            maxWidth: 150,
-            editable: false,
-        },
-        {
-            field: 'attendance',
-            headerName: 'Attendance',
-            flex: 1,
-            minWidth: 70,
-            maxWidth: 100,
-            editable: false,
-        },
-        {
-            field: 'score',
-            headerName: 'Score',
-            flex: 1,
-            minWidth: 70,
-            maxWidth: 100,
-            editable: false,
-        },
-        {
-            field: 'length ',
-            headerName: 'Length ',
             flex: 1,
             minWidth: 70,
             maxWidth: 100,
@@ -146,16 +114,49 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
             headerName: 'Field ',
             flex: 1,
             minWidth: 70,
-            maxWidth: 100,
+            maxWidth: 200,
             editable: false,
+            disableColumnMenu: true,
+            hideSortIcons: true
         },
         {
             field: 'role',
             headerName: 'Role ',
             flex: 1,
             minWidth: 70,
+            maxWidth: 200,
+            editable: false,
+            disableColumnMenu: true,
+            hideSortIcons: true
+        },
+        {
+            field: 'attendance',
+            headerName: 'Attendance',
+            flex: 1,
+            minWidth: 70,
             maxWidth: 100,
             editable: false,
+            disableColumnMenu: true,
+            hideSortIcons: true
+        },
+        {
+            field: 'score',
+            headerName: 'Score',
+            flex: 1,
+            minWidth: 70,
+            maxWidth: 100,
+            editable: false,
+            disableColumnMenu: true,
+            hideSortIcons: true,
+            renderCell: (params: GridRenderCellParams) => (
+                <Rating
+                    name="half-rating-read"
+                    defaultValue={params.value}
+                    precision={0.5}
+                    readOnly 
+                    size="small"
+                />
+              )     
         },
         {
             field: 'actions',

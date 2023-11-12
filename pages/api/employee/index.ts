@@ -32,7 +32,7 @@ const getEmployee = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         await db.connect();
         const employee = await Employee.find()
-                                       .select('name lastName idNumber state project phone adress birth category entry tags description')
+                                       .select('name lastName idNumber status role field project phone adress birth category entry tags description')
                                        .lean();
     
         await db.disconnect();
