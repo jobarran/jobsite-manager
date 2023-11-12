@@ -18,7 +18,7 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
         return null
     }
 
-    const { role, name, lastName, idUser, possition, project, _id} = user
+    const { role, name, lastName, idUser, possition, project, idCompany, _id} = user
 
     return {
         _id,
@@ -28,7 +28,8 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
         lastName,
         idUser,
         project,
-        possition
+        possition,
+        idCompany
     }
 }
 
@@ -55,7 +56,7 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
 // }
 
 
-export const getUsersByLegajo = async (idUser: string): Promise<IUser | null>  => {
+export const getUsersById = async (idUser: string): Promise<IUser | null>  => {
 
     await db.connect()
     const user = await User.findOne({ idUser }).lean()

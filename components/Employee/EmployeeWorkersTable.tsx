@@ -25,21 +25,23 @@ interface Props {
 const MOBILE_COLUMNS = {
     id: true,
     name: true,
-    obra: true,
-    category: false,
-    asistencia: false,
-    valoracion: false,
-    antiguedad: false,
+    status: true,
+    project: true,
+    attendance: true,
+    score: true,
+    field: true,
+    role: true,
     actions: true
   };
   const ALL_COLUMNS = {
     id: true,
     name: true,
-    obra: true,
-    category: true,
-    asistencia: true,
-    valoracion: true,
-    antiguedad: true,
+    status: true,
+    project: true,
+    attendance: true,
+    score: true,
+    field: true,
+    role: true,
     actions: true
   };
  
@@ -49,10 +51,13 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
         key: worker.idNumber,
         id: worker.idNumber,
         name: worker.lastName + ' ' + worker.name,
-        obra: worker.project,
-        asistencia: '30%',
-        valoracion: '8/10',
-        antiguedad: `${getYearsBetweenDates(worker.entry, dayjs().format('DD/MM/YYYY'))}`
+        status: worker.status,
+        project: worker.project,
+        attendance: '30%',
+        score: '8/10',
+        field: worker.field,
+        role: worker.role,
+        length: `${getYearsBetweenDates(worker.entry, dayjs().format('DD/MM/YYYY'))}`
     }))
 
     const apiRef = useGridApiRef();
@@ -97,47 +102,67 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
             editable: false,
         },
         {
-            field: 'project',
-            headerName: 'Project',
+            field: 'status',
+            headerName: 'Status',
             flex: 1,
-            minWidth: 60,
+            minWidth: 70,
             maxWidth: 150,
             editable: false,
         },
-        
+        {
+            field: 'project',
+            headerName: 'Project',
+            flex: 1,
+            minWidth: 70,
+            maxWidth: 150,
+            editable: false,
+        },
         {
             field: 'attendance',
             headerName: 'Attendance',
             flex: 1,
-            minWidth: 50,
+            minWidth: 70,
             maxWidth: 100,
             editable: false,
-            align: 'center'
         },
         {
             field: 'score',
             headerName: 'Score',
             flex: 1,
-            minWidth: 50,
+            minWidth: 70,
             maxWidth: 100,
             editable: false,
-            align: 'center'
         },
         {
             field: 'length ',
             headerName: 'Length ',
             flex: 1,
-            minWidth: 50,
+            minWidth: 70,
             maxWidth: 100,
             editable: false,
-            align: 'center'
+        },
+        {
+            field: 'field',
+            headerName: 'Field ',
+            flex: 1,
+            minWidth: 70,
+            maxWidth: 100,
+            editable: false,
+        },
+        {
+            field: 'role',
+            headerName: 'Role ',
+            flex: 1,
+            minWidth: 70,
+            maxWidth: 100,
+            editable: false,
         },
         {
             field: 'actions',
             headerName: 'Open',
             type: 'actions',
             flex: 1,
-            minWidth: 50,
+            minWidth: 70,
             maxWidth: 100,
             editable: false,
             getActions: (params: any) => [

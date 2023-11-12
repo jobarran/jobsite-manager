@@ -3,6 +3,7 @@ import mongoose, { Schema, model, Model } from 'mongoose'
 
 
 const userSchema = new Schema({
+    idCompany : { type: String, required: true },
     name      : { type: String, required: true },
     lastName  : { type: String, required: true },
     idUser    : { type: String, required: true, unique: true },

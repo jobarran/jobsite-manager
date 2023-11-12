@@ -5,6 +5,8 @@ import { UiContext } from '@/context/ui'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import { AuthContext } from '@/context/auth';
 import { AvatarIcon } from '.';
+import { CompanyContext } from '@/context';
+import { capitalizaAndAddSpaces } from '../../utils/capitalizaAndAddSpaces';
 
 
 export const Navbar = () => {
@@ -12,7 +14,8 @@ export const Navbar = () => {
     const theme = useTheme()
 
     const { isMenuOpen, toggleSideMenu } = useContext( UiContext )
-    const { isLoggedIn, user, logout } = useContext( AuthContext )    
+    const { isLoggedIn, user, logout } = useContext( AuthContext ) 
+    const { company } = useContext( CompanyContext )   
 
   return (
     <AppBar>
@@ -30,13 +33,13 @@ export const Navbar = () => {
             </IconButton>
             <NextLink href='/' passHref legacyBehavior>
                 <Link display='flex' alignItems='center'>
-                    <Typography variant='body1' color={theme.palette.info.light}>Company Name</Typography>
+                    <Typography variant='body1' color={theme.palette.info.light}>{ capitalizaAndAddSpaces(company?.name) }</Typography>
                 </Link>
             </NextLink>
 
             <Box flex={ 1 } />
             
-            <AvatarIcon name={ user?.name || '' } lastName={ user?.lastName || '' } role={ user?.role || '' } legajo={ user?.legajo || '' } />
+            <AvatarIcon name={ user?.name || '' } lastName={ user?.lastName || '' } role={ user?.role || '' } legajo={ user?.idUser || '' } />
 
 
 

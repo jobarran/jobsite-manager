@@ -1,15 +1,17 @@
 
 
 export interface IEmployee {
+    idCompany  : string;
     name       : string; 
     lastName   : string;
     idNumber   : string;
-    state      : string; 
+    status     : string; 
     project    : string; 
     phone?     : string; 
     address?   : string; 
     birth?     : string; 
     entry      : string;
-    tags       : string[];
+    field      : string[];
+    role       : string;
     description: string
 }

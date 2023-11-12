@@ -21,7 +21,7 @@ export const UserPage: NextPage<Props> = ({ user }) => {
         pageDescription={"Editar perfil de usuario"}
       >
 
-        <Typography>{ user.lastName }</Typography>
+        <Typography>{ user.name + ' ' + user.lastName }</Typography>
 
       </ProjectLayout>
     </>
@@ -29,19 +29,9 @@ export const UserPage: NextPage<Props> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
-    
-  const { idUser = '' } = query;
-  const user = await dbUsers.getUsersByLegajo( idUser.toString() );
-
-  if ( !user ) {
-    
-      return {
-          redirect: {
-              destination: '../auth/login',
-              permanent: false
-          }
-      }
-  }
+  
+  const { id = '' } = query;
+  const user = await dbUsers.getUsersById( id.toString() );
 
   return {
       props: { 

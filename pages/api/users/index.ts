@@ -32,7 +32,7 @@ const getUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         await db.connect();
         const user = await User.find()
-                                       .select('name lastName idUser email possition project role')
+                                       .select('name lastName idUser email possition project role idCompany')
                                        .lean();
     
         await db.disconnect();

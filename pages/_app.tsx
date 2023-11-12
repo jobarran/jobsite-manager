@@ -1,4 +1,4 @@
-import { UiProvider } from '@/context'
+import { CompanyProvider, UiProvider } from '@/context'
 import '@/styles/globals.css'
 import { lightTheme } from '@/themes'
 import { CssBaseline, ThemeProvider } from '@mui/material'
@@ -6,7 +6,6 @@ import type { AppProps } from 'next/app'
 import { SessionProvider } from "next-auth/react"
 import { AuthProvider } from '@/context/auth'
 import { SWRConfig } from 'swr'
-
 
 
 export default function App({ Component, pageProps: { session, ...pageProps} }: AppProps) {
@@ -19,12 +18,14 @@ export default function App({ Component, pageProps: { session, ...pageProps} }: 
         }}
       >
         <AuthProvider>
-          <ThemeProvider theme={ lightTheme }>
-            <CssBaseline/>
-              <UiProvider>
-                  <Component {...pageProps}/>
-              </UiProvider>
-          </ThemeProvider>
+        <CompanyProvider>
+            <ThemeProvider theme={ lightTheme }>
+              <CssBaseline/>
+                <UiProvider>
+                    <Component {...pageProps}/>
+                </UiProvider>
+            </ThemeProvider>
+          </CompanyProvider>
         </AuthProvider>
       </SWRConfig>
     </SessionProvider>

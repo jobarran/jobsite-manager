@@ -13,10 +13,6 @@ export const EmployeesPage = () => {
     const { users } = useUsers(`/users`)
     const { employees, error, isLoading } = useEmployees(`/employee`)
 
-    console.log(users)
-
-
-
     return (
         <>
             <ProjectLayout

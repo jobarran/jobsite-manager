@@ -5,6 +5,7 @@ import router, { useRouter } from "next/router";
 import { FC, useContext, useState } from "react";
 import Cookies from 'js-cookie';
 import { border } from "@mui/system";
+import { CompanyContext } from "@/context";
 
 
 interface Props {
@@ -20,6 +21,7 @@ export const AvatarIcon: FC<Props> = ( {name, lastName, role, legajo} ) => {
     const theme = useTheme()
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
     const { logout, user } = useContext( AuthContext )
+    const { unsetCompany } = useContext( CompanyContext )
     const router = useRouter()
 
     const settings = [
@@ -37,6 +39,8 @@ export const AvatarIcon: FC<Props> = ( {name, lastName, role, legajo} ) => {
           
           Cookies.set('CallbackUrl', `${ router.asPath }`)
           signOut();
+          unsetCompany();
+
             return
         }
 

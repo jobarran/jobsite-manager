@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { db, seeeDatabase } from '@/database';
-import { User } from '@/models';
+import { Company, User } from '@/models';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './auth/[...nextauth]';
 import Project from '@/models/Project';
@@ -30,6 +30,9 @@ export default async function handler(
   
     await User.deleteMany();
     await User.insertMany( seeeDatabase.initialData.users )
+
+    await Company.deleteMany();
+    await Company.insertMany( seeeDatabase.initialData.company ); 
   
     await Project.deleteMany();
     await Project.insertMany( seeeDatabase.initialData.projects ); 

@@ -23,7 +23,7 @@ export const getAllProjects =async (): Promise<IProject[]> => {
 
     await db.connect();
     const projects = await Project.find({})
-    .select('name idProject status -_id')
+    .select(' name idProject status -_id')
     .lean()
 
     await db.disconnect();
