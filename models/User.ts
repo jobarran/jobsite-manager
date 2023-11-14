@@ -6,10 +6,9 @@ const userSchema = new Schema({
     idCompany : { type: String, required: true },
     name      : { type: String, required: true },
     lastName  : { type: String, required: true },
-    idUser    : { type: String, required: true, unique: true },
     email     : { type: String, required: true, unique: true },
     password  : { type: String, required: true },
-    project   :     [{ type: String }],
+    project   : [{ type: String }],
     possition : { type: String, required: true },
 
     role: {

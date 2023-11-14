@@ -1,19 +1,29 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthLayout } from "@/components/layouts"
-import { Alert, Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar, Stack, TextField, Typography, createTheme, makeStyles, useTheme } from "@mui/material"
+import { Alert, Box, Button, Chip, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar, Stack, TextField, Typography, createTheme, makeStyles, useTheme } from "@mui/material"
 import { useForm } from 'react-hook-form'
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { ErrorOutline, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import { signIn, useSession } from 'next-auth/react';
+import Cookies from 'js-cookie';
 import { AuthContext } from '@/context/auth';
+import { jobSiteManagementApi } from '@/api';
+import { convertToSlug } from '@/utils';
+import axios from 'axios';
   
 type FormData = {
-  email   : string,
-  password: string,
+    name       : string,
+    lastName   : string,
+    email      : string,
+    password   : string,
+    companyName: string,
 };
 
 export const LoginPage = () => {
     
+    const { data, status } = useSession();
     const router = useRouter();
+    const { registerUser, loginUser } = useContext( AuthContext );
     const { 
         register,
         handleSubmit,
@@ -23,20 +33,27 @@ export const LoginPage = () => {
         setFocus,
         clearErrors
     } = useForm<FormData>();
-    const { loginUser } = useContext( AuthContext )
     const [showError, setShowError] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('');
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: any) => {
         event.preventDefault();
     };
     const theme = useTheme()
-   
 
-    const onLoginUser = async ( { email, password }: FormData ) => {
+    const onRegisterForm = async( {  name, lastName, email, password, companyName }: FormData ) => {
+        
         setShowError(false);
-        const { hasError } = await loginUser(email, password)
-        hasError ? setShowError(true) : setShowError(false);
+        const { hasError } = await registerUser(name, lastName, email, password, companyName)
+
+        if (hasError) {
+            setShowError(true)
+        }
+        //TODO: create company
+        //TODO: userId Bug
+        loginUser(email, password)
+        setShowError(false)
     }
 
   const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -54,7 +71,7 @@ export const LoginPage = () => {
         <Snackbar open={showError} autoHideDuration={3000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error">Sorry, your password was incorrect. Please double-check!</Alert>
         </Snackbar>
-        <form onSubmit={ handleSubmit(onLoginUser) } noValidate >
+        <form onSubmit={ handleSubmit(onRegisterForm) }  >
             <Box sx={{ 
                 
                 width:350, 
@@ -89,7 +106,87 @@ export const LoginPage = () => {
                     <Grid item xs={12} sx={{ mt:2}}>
                         <FormControl sx={{ width: '100%' }} variant="outlined">
                             <InputLabel
-                                htmlFor="outlined-email"
+                                htmlFor="outlined-adornment-name"
+                                sx={{
+                                    color: theme.palette.info.light,
+                                    '&.Mui-focused': {
+                                        color: theme.palette.info.light
+                                      }
+                                }}
+                            >Name</InputLabel>
+                            <OutlinedInput
+                                color='info'
+                                id="outlined-name"
+                                label="name"
+                                fullWidth
+                                sx={{
+                                    input: {
+                                        color: theme.palette.info.light,
+                                    },
+                                    "& .MuiOutlinedInput-notchedOutline" : {
+                                        borderColor : theme.palette.info.light,
+                                        borderWidth: 'thin',
+                                        opacity: '50%'
+                                     },
+                                     "&:hover > .MuiOutlinedInput-notchedOutline" : {
+                                        borderColor : theme.palette.info.main,
+                                     },
+                                     "&:focused > .MuiOutlinedInput-notchedOutline" : {
+                                       borderColor : theme.palette.info.light
+                                    }
+                                    
+                                  }}
+                                { ...register('name', {
+                                    required: 'Name is required',
+                                })}
+                            />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sx={{ mt:2}}>
+                        <FormControl sx={{ width: '100%' }} variant="outlined">
+                            <InputLabel
+                                htmlFor="outlined-adornment-lastname"
+                                sx={{
+                                    color: theme.palette.info.light,
+                                    '&.Mui-focused': {
+                                        color: theme.palette.info.light
+                                      }
+                                }}
+                            >Last Name</InputLabel>
+                            <OutlinedInput
+                                color='info'
+                                id="outlined-lastName"
+                                label="lastName"
+                                fullWidth
+                                sx={{
+                                    input: {
+                                        color: theme.palette.info.light,
+                                    },
+                                    "& .MuiOutlinedInput-notchedOutline" : {
+                                        borderColor : theme.palette.info.light,
+                                        borderWidth: 'thin',
+                                        opacity: '50%'
+                                     },
+                                     "&:hover > .MuiOutlinedInput-notchedOutline" : {
+                                        borderColor : theme.palette.info.main,
+                                     },
+                                     "&:focused > .MuiOutlinedInput-notchedOutline" : {
+                                       borderColor : theme.palette.info.light
+                                    }
+                                    
+                                  }}
+                                { ...register('lastName', {
+                                    required: 'Lastname is required',
+                                })}
+                            />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12} sx={{ mt:2}}>
+                        <FormControl sx={{ width: '100%' }} variant="outlined">
+                            <InputLabel
+                                htmlFor="outlined-adornment-email"
                                 sx={{
                                     color: theme.palette.info.light,
                                     '&.Mui-focused': {
@@ -124,9 +221,48 @@ export const LoginPage = () => {
                                 })}
                             />
                         </FormControl>
-
                     </Grid>
-                    
+
+                    <Grid item xs={12}  sx={{ mt:1}}>
+                        <FormControl sx={{ width: '100%' }} variant="outlined">
+                        <InputLabel
+                            htmlFor="outlined-adornment-company"
+                            sx={{
+                                color: theme.palette.info.light,
+                                '&.Mui-focused': {
+                                    color: theme.palette.info.light
+                                  }
+                            }}
+                        >Company Name</InputLabel>
+                        <OutlinedInput
+                            color='info'
+                            id="outlined-company"
+                            type={"text"}
+                            label="Company Name"
+                            fullWidth
+                            sx={{
+                                input: {
+                                    color: theme.palette.info.light,
+                                },
+                                "& .MuiOutlinedInput-notchedOutline" : {
+                                    borderColor : theme.palette.info.light,
+                                    borderWidth: 'thin',
+                                    opacity: '50%'
+                                 },
+                                 "&:hover > .MuiOutlinedInput-notchedOutline" : {
+                                    borderColor : theme.palette.info.main,
+                                 },
+                                 "&:focused > .MuiOutlinedInput-notchedOutline" : {
+                                   borderColor : theme.palette.info.light
+                                }
+                              }}
+                            { ...register('companyName', {
+                                required: 'Company Name is required',
+                            })}
+                        />
+                        </FormControl>
+                    </Grid>
+
                     <Grid item xs={12}  sx={{ mt:1}}>
                         <FormControl sx={{ width: '100%' }} variant="outlined">
                         <InputLabel
@@ -165,7 +301,7 @@ export const LoginPage = () => {
                                     </IconButton>
                                 </InputAdornment>
                         }
-                            label="Contraseña"
+                            label="password"
                             fullWidth
                             sx={{
                                 input: {
@@ -190,20 +326,7 @@ export const LoginPage = () => {
                         </FormControl>
                     </Grid>
 
-                    <Grid item flex={1}></Grid>
-                    <Grid item>
-                        <Button
-                            sx={{
-                                bgcolor: 'transparent',
-                                '&:hover': {
-                                    backgroundColor:'transparent',
-
-                                }
-                            }}
-                        >Forgot password?</Button>
-                    </Grid>
-
-                    <Grid item xs={12}>
+                    <Grid item xs={12} mt={2}>
                         <Button
                             variant="outlined"
                             type='submit'
@@ -218,9 +341,8 @@ export const LoginPage = () => {
                                     borderColor: theme.palette.info.light,
 
                                 }
-                                // bgcolor: 'transparent',
                             }}
-                        >Log in</Button>
+                        >Sign up</Button>
                     </Grid>
 
                     <Grid item flex={1}></Grid>
@@ -228,9 +350,9 @@ export const LoginPage = () => {
                         <Typography
                             sx={{textAlign: "center", color: theme.palette.info.main}}
                             variant='caption'
-                        >Don't have an account?</Typography>
+                        >Have an account?</Typography>
                         <Button
-                            href="/auth/register"
+                            href="/auth/login"
                             sx={{
                                 bgcolor: 'transparent',
                                 '&:hover': {
@@ -238,7 +360,7 @@ export const LoginPage = () => {
 
                                 }
                             }}
-                        >Sign up</Button>
+                        >Log in</Button>
                     </Grid>
                     <Grid item flex={1}></Grid>
 

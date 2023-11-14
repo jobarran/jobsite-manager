@@ -34,7 +34,6 @@ export const CompanyProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     useEffect(() => {
         if ( user ) {
-            console.log('ACA')
             setCompany()
         }
       }, [user])

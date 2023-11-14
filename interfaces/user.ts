@@ -5,7 +5,6 @@ export interface IUser {
     idCompany : string;
     name      : string;
     lastName  : string;
-    idUser    : string;
     email     : string;
     password? : string;
     role      : string;

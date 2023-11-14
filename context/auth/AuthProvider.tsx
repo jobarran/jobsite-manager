@@ -4,9 +4,9 @@ import { IUser } from '@/interfaces';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, signIn } from 'next-auth/react';
 import jobSiteManagementApi from '@/api/jobSiteManagementApi';
-
+import { convertToSlug } from '@/utils';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -28,55 +28,42 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     useEffect(() => {
       if ( status === 'authenticated' ) {
+        router.push( '/' )
         dispatch({ type: '[Auth] - Login', payload: data?.user as IUser})
       }
     
     }, [ status, data ])
     
-
-    // useEffect(() => {
-    //     checkToken()
-    // }, [])
-
-    const checkToken = async() => {
-
-        if ( !Cookies.get('token') ) {
-            return;
-        }
+    const loginUser = async ( email: string, password: string ) => {
 
         try {
-            const { data } = await jobSiteManagementApi.get('/user/validate-token');
-            const { token, user } = data;
-            Cookies.set('token', token );
-            dispatch({ type: '[Auth] - Login', payload: user })
-        } catch (error) {
-            Cookies.remove('token')
-        }
-
-    }
-    
-
-    const loginUser = async ( email:string, password:string ): Promise<boolean> => {
+            const data  = await signIn('credentials', {
+                email,
+                password,
+                redirect: false
+            })
+            if ( !data?.ok ) {
+                return {hasError: true}
+            }
+            return {hasError: false}
+            
+        } catch (error) {return {hasError: true}}
         
-        try {
-            const { data } = await jobSiteManagementApi.post('/user/login', { email, password });
-            const { token, user } = data;
-            Cookies.set('token', token );
-            dispatch({ type: '[Auth] - Login', payload: user })
-            return true
-        } catch (error) {
-            return false;
-        }
-
     }
 
-    const registerUser = async ( name:string, lastName: string, email:string, password:string ): Promise<{hasError: boolean; message?: string}> => {
+    const registerUser = async ( name:string, lastName: string, email:string, password:string, companyName: string ): Promise<{hasError: boolean; message?: string}> => {
 
         try {
-            const { data } = await jobSiteManagementApi.post('/user/register', { name, email, password });
-            const { token, user } = data;
-            Cookies.set('token', token );
-            dispatch({ type: '[Auth] - Login', payload: user })
+            const { data } = await jobSiteManagementApi.post('/auth/register', {
+                name,
+                lastName,
+                email,
+                password,
+                idUser: '2',
+                idCompany: `${email}-${convertToSlug(companyName)}`,
+                possition: 'owner',
+                role: 'admin'
+            });
             return {
                 hasError: false,
             }
@@ -87,23 +74,17 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
                     message: error.response?.data.message
                 }
             }
-
             return {
                 hasError: true,
-                message: 'No se pudo crear el usuario'
+                message: 'Cannot create user'
             }
         }
-
     }
 
     const logout = () => {
 
         Cookies.set('CallbackUrl', 'asd')
-
         signOut();
-
-        // Cookies.remove('token');
-        // router.reload();
     }
 
     return (
@@ -111,6 +92,7 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
             ...state,
 
             // Methods
+            // loginUser,
             loginUser,
             registerUser,
             logout,

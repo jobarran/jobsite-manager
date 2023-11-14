@@ -6,8 +6,10 @@ interface ContextProps {
      isLoggedIn: boolean;
      user?: IUser;
 
-     loginUser: (email: string, password: string) => Promise<boolean>
-     registerUser: (name: string, lastName: string, email: string, password: string) => Promise<{
+     loginUser: (email: string, password: string) => Promise<{
+          hasError: boolean;
+      }>
+     registerUser: (name: string, lastName: string, email: string, password: string, companyName: string) => Promise<{
           hasError: boolean;
           message?: string;
       }>
