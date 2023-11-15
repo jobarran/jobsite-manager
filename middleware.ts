@@ -25,4 +25,4 @@ if (!session) {
 
 }
 
-export const config = { matcher: [ "/", "/user/:legajo*", "/obra/:idProject*", '/employee' ]}
+export const config = { matcher: [ "/", "/user/:id*", "/obra/:idProject*", '/employee' ]}

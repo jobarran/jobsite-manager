@@ -8,8 +8,9 @@ import { signIn, useSession } from 'next-auth/react';
 import Cookies from 'js-cookie';
 import { AuthContext } from '@/context/auth';
 import { jobSiteManagementApi } from '@/api';
-import { convertToSlug } from '@/utils';
+import { convertToSlug, emailToUser } from '@/utils';
 import axios from 'axios';
+import { CompanyContext } from '@/context';
   
 type FormData = {
     name       : string,
@@ -24,6 +25,7 @@ export const LoginPage = () => {
     const { data, status } = useSession();
     const router = useRouter();
     const { registerUser, loginUser } = useContext( AuthContext );
+    const { registerCompany } = useContext( CompanyContext )
     const { 
         register,
         handleSubmit,
@@ -50,8 +52,7 @@ export const LoginPage = () => {
         if (hasError) {
             setShowError(true)
         }
-        //TODO: create company
-        //TODO: userId Bug
+        registerCompany( companyName, emailToUser(email) )
         loginUser(email, password)
         setShowError(false)
     }

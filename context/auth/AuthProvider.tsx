@@ -59,7 +59,6 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
                 lastName,
                 email,
                 password,
-                idUser: '2',
                 idCompany: `${email}-${convertToSlug(companyName)}`,
                 possition: 'owner',
                 role: 'admin'

@@ -16,7 +16,7 @@ export default async function handler(
 
     switch ( req.method ) {
         case 'GET':
-            return getUserByLegajo( req, res )
+            return getUserById( req, res )
     
         default:
             return res.status(400).json({
@@ -27,16 +27,16 @@ export default async function handler(
 }
 
 
-const getUserByLegajo = async (req: NextApiRequest, res: NextApiResponse<Data>) => {    
+const getUserById = async (req: NextApiRequest, res: NextApiResponse<Data>) => {    
 
     await db.connect();
-    const { legajo } = req.query
-    const user = await User.findOne({ legajo }).lean()
+    const { id } = req.query
+    const user = await User.findOne({ id }).lean()
     await db.disconnect();
 
     if( !user ) {
         return res.status(404).json({
-            message: 'Usuario no encontrado'
+            message: 'User not found'
         })
     }
     

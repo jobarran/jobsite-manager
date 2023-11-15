@@ -18,7 +18,7 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
         return null
     }
 
-    const { role, name, lastName, idUser, possition, project, idCompany, _id} = user
+    const { role, name, lastName, possition, project, idCompany, _id} = user
 
     return {
         _id,
@@ -26,7 +26,6 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
         role,
         name,
         lastName,
-        idUser,
         project,
         possition,
         idCompany
@@ -56,10 +55,11 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
 // }
 
 
-export const getUsersById = async (idUser: string): Promise<IUser | null>  => {
+export const getUsersById = async (id: string): Promise<IUser | null>  => {
 
+    console.log(id)
     await db.connect()
-    const user = await User.findOne({ idUser }).lean()
+    const user = await User.findOne({ _id:id }).lean()
     await db.disconnect()
 
     if ( !user ) {
@@ -67,19 +67,5 @@ export const getUsersById = async (idUser: string): Promise<IUser | null>  => {
     }
 
     return JSON.parse(JSON.stringify( user ))
-
-}
-
-interface UserId {
-    idUser: string;
-}
-
-export const getAllUserLegajo = async (): Promise<UserId[]> => {
-    
-    await db.connect();
-    const slug = await User.find().select( 'idUser -_id' ).lean();
-    await db.disconnect();
-
-    return slug;
 
 }

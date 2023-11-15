@@ -8,15 +8,7 @@ import { border } from "@mui/system";
 import { CompanyContext } from "@/context";
 
 
-interface Props {
-    name: string,
-    lastName: string,
-    role: string,
-    legajo: string
-}
-
-
-export const AvatarIcon: FC<Props> = ( {name, lastName, role, legajo} ) => {
+export const AvatarIcon = () => {
 
     const theme = useTheme()
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -44,7 +36,7 @@ export const AvatarIcon: FC<Props> = ( {name, lastName, role, legajo} ) => {
             return
         }
 
-        router.push({ pathname: '/user/[id]', query: { legajo: user?.idUser } });
+        router.push({ pathname: '/user/[id]', query: { id: user?._id } });
 
         setAnchorElUser(null);
     };

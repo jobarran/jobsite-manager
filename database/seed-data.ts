@@ -24,7 +24,6 @@ interface SeedUser {
     idCompany: string;
     name     : string;
     lastName : string;
-    idUser   : string;
     email    : string;
     password : string;
     role     : 'admin'|'user';
@@ -59,7 +58,7 @@ interface SeedData {
 export const initialData: SeedData = {
     company: [
       {
-        idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+        idCompany: 'jbarrandeguy-company-name-inc',
         name: 'company-name-inc',
         createdBy: 'jbarrandeguy@gmail.com',
         settings: {
@@ -72,21 +71,19 @@ export const initialData: SeedData = {
 
     users: [
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
-            name: 'Joaquin',
-            lastName: 'Barrandeguy',
-            idUser: '001',
-            email: 'jbarrandeguy@gmail.com',
-            password: bcrypt.hashSync('123456'),
-            role: 'admin',
-            possition: 'owner',
-            project: []
+          idCompany: 'jbarrandeguy-company-name-inc',
+          name: 'Joaquin',
+          lastName: 'Barrandeguy',
+          email: 'jbarrandeguy@gmail.com',
+          password: bcrypt.hashSync('123456'),
+          role: 'admin',
+          possition: 'owner',
+          project: []
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "John",
           lastName: "Doe",
-          idUser: "173",
           email: "johndoe@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -94,10 +91,9 @@ export const initialData: SeedData = {
           project: ["PR01", "PR03", "PR04", "PR05", "PR06", "PR08"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Alice",
           lastName: "Smith",
-          idUser: "456",
           email: "alicesmith@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -105,10 +101,9 @@ export const initialData: SeedData = {
           project: ["PR02", "PR04", "PR05", "PR07", "PR09", "PR12"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Bob",
           lastName: "Johnson",
-          idUser: "789",
           email: "bobjohnson@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -116,10 +111,9 @@ export const initialData: SeedData = {
           project: ["PR01", "PR03", "PR06", "PR08", "PR11", "PR15"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Emma",
           lastName: "Williams",
-          idUser: "234",
           email: "emmawilliams@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -127,10 +121,9 @@ export const initialData: SeedData = {
           project: ["PR02", "PR04", "PR05", "PR07", "PR09", "PR13"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Michael",
           lastName: "Brown",
-          idUser: "567",
           email: "michaelbrown@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -138,10 +131,9 @@ export const initialData: SeedData = {
           project: ["PR01", "PR03", "PR04", "PR06", "PR08", "PR12"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Sarah",
           lastName: "Wilson",
-          idUser: "890",
           email: "sarahwilson@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -149,10 +141,9 @@ export const initialData: SeedData = {
           project: ["PR02", "PR04", "PR05", "PR07", "PR09", "PR13"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "David",
           lastName: "Davis",
-          idUser: "123",
           email: "daviddavis@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -160,10 +151,9 @@ export const initialData: SeedData = {
           project: ["PR01", "PR03", "PR06", "PR08", "PR11", "PR15"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Olivia",
           lastName: "Taylor",
-          idUser: "406",
           email: "oliviataylor@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -171,10 +161,9 @@ export const initialData: SeedData = {
           project: ["PR02", "PR04", "PR05", "PR07", "PR09", "PR13"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "James",
           lastName: "Jones",
-          idUser: "709",
           email: "jamesjones@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -182,10 +171,9 @@ export const initialData: SeedData = {
           project: ["PR01", "PR03", "PR06", "PR08", "PR11", "PR15"]
         },
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
           name: "Sophia",
           lastName: "Moore",
-          idUser: "294",
           email: "sophiamoore@gmail.com",
           password: "hashed_password_for_123456",
           role: "user",
@@ -195,97 +183,97 @@ export const initialData: SeedData = {
     ],
     projects: [
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 01',
             idProject: 'PR01',
             status: "upcoming",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 02',
             idProject: 'PR02',
             status: "upcoming",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 03',
             idProject: 'PR03',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 04',
             idProject: 'PR04',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 05',
             idProject: 'PR05',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 06',
             idProject: 'PR06',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 07',
             idProject: 'PR07',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 08',
             idProject: 'PR08',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 09',
             idProject: 'PR09',
             status: "finished",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 10',
             idProject: 'PR10',
             status: "finished",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 11',
             idProject: 'PR11',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 12',
             idProject: 'PR12',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 13',
             idProject: 'PR13',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 14',
             idProject: 'PR14',
             status: "ongoing",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 15',
             idProject: 'PR15',
             status: "finished",
         },
         {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 16',
             idProject: 'PR16',
             status: "finished",
@@ -293,7 +281,7 @@ export const initialData: SeedData = {
     ],
     employees: [
         {
-          idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+          idCompany: 'jbarrandeguy-company-name-inc',
             name: "John",
             lastName: "Doe",
             idNumber: "12345",
@@ -308,7 +296,7 @@ export const initialData: SeedData = {
             description: "Skilled in carpentry"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Jane",
             lastName: "Smith",
             idNumber: "67890",
@@ -323,7 +311,7 @@ export const initialData: SeedData = {
             description: "Expert welder, electrician"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Michael",
             lastName: "Johnson",
             idNumber: "54321",
@@ -337,7 +325,7 @@ export const initialData: SeedData = {
             description: "Eroofing specialist"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Emily",
             lastName: "Davis",
             idNumber: "98765",
@@ -352,7 +340,7 @@ export const initialData: SeedData = {
             description: "Skilled electrician"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "William",
             lastName: "Brown",
             idNumber: "13579",
@@ -366,7 +354,7 @@ export const initialData: SeedData = {
             description: "Talented painter, tiler, and construction designer"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Linda",
             lastName: "Wilson",
             idNumber: "24680",
@@ -381,7 +369,7 @@ export const initialData: SeedData = {
             description: "Experienced construction supervisor"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Christopher",
             lastName: "Martinez",
             idNumber: "87654",
@@ -396,7 +384,7 @@ export const initialData: SeedData = {
             description: "Skilled plumber"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Susan",
             lastName: "Taylor",
             idNumber: "65432",
@@ -410,7 +398,7 @@ export const initialData: SeedData = {
             description: "Junior painter"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "David",
             lastName: "Harris",
             idNumber: "23456",
@@ -425,7 +413,7 @@ export const initialData: SeedData = {
             description: "Skilled plumber"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Karen",
             lastName: "Lewis",
             idNumber: "76543",
@@ -439,7 +427,7 @@ export const initialData: SeedData = {
             description: "Talented welder"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Thomas",
             lastName: "Anderson",
             idNumber: "98713",
@@ -454,7 +442,7 @@ export const initialData: SeedData = {
             description: "Junior carpenter"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Megan",
             lastName: "White",
             idNumber: "98714",
@@ -468,7 +456,7 @@ export const initialData: SeedData = {
             description: "Junior mason"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Kevin",
             lastName: "Hill",
             idNumber: "98715",
@@ -483,7 +471,7 @@ export const initialData: SeedData = {
             description: "Skilled tiler"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Jennifer",
             lastName: "Garcia",
             idNumber: "98716",
@@ -497,7 +485,7 @@ export const initialData: SeedData = {
             description: "Junior carpenter, painter"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Daniel",
             lastName: "Turner",
             idNumber: "98717",
@@ -512,7 +500,7 @@ export const initialData: SeedData = {
             description: "Expert Plumber"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Maria",
             lastName: "Mitchell",
             idNumber: "98718",
@@ -526,7 +514,7 @@ export const initialData: SeedData = {
             description: "Junior mason"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Sophia",
             lastName: "Morales",
             idNumber: "98726",
@@ -541,7 +529,7 @@ export const initialData: SeedData = {
             description: "Junior tiler"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "James",
             lastName: "Parker",
             idNumber: "98727",
@@ -556,7 +544,7 @@ export const initialData: SeedData = {
             description: "Skilled welder"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Olivia",
             lastName: "Gomez",
             idNumber: "98728",
@@ -571,7 +559,7 @@ export const initialData: SeedData = {
             description: "Junior painter"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Benjamin",
             lastName: "Torres",
             idNumber: "98729",
@@ -586,7 +574,7 @@ export const initialData: SeedData = {
             description: "Skilled roofing specialist"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Amelia",
             lastName: "Flores",
             idNumber: "98730",
@@ -601,7 +589,7 @@ export const initialData: SeedData = {
             description: "Junior plumber"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "William",
             lastName: "Hernandez",
             idNumber: "98731",
@@ -616,7 +604,7 @@ export const initialData: SeedData = {
             description: "Expert electrician"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Mia",
             lastName: "King",
             idNumber: "98732",
@@ -631,7 +619,7 @@ export const initialData: SeedData = {
             description: "Junior carpenter"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Ethan",
             lastName: "Lopez",
             idNumber: "98733",
@@ -646,7 +634,7 @@ export const initialData: SeedData = {
             description: "Experienced construction manager"
           },
           {
-            idCompany: 'jbarrandeguy@gmail.com-company-name-inc',
+            idCompany: 'jbarrandeguy-company-name-inc',
             name: "Liam",
             lastName: "Perez",
             idNumber: "98734",

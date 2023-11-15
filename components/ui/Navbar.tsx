@@ -39,7 +39,7 @@ export const Navbar = () => {
 
             <Box flex={ 1 } />
             
-            <AvatarIcon name={ user?.name || '' } lastName={ user?.lastName || '' } role={ user?.role || '' } legajo={ user?.idUser || '' } />
+            <AvatarIcon/>
 
 
 

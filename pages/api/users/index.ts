@@ -31,9 +31,7 @@ const getUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     try {
 
         await db.connect();
-        const user = await User.find()
-                                       .select('name lastName idUser email possition project role idCompany')
-                                       .lean();
+        const user = await User.find().lean();
     
         await db.disconnect();
         return res.status(200).json( user );

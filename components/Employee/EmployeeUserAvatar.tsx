@@ -41,7 +41,7 @@ export const EmployeeUserAvatar: FC<Props> = ({ user }) => {
         lg={1}
       >
         <IconButton
-          onClick={ () => handleClick(`/user/${user.idUser}`)  }
+          onClick={ () => handleClick(`/user/${user._id}`)  }
           sx={{ p: 0.5 }}
         >
           {

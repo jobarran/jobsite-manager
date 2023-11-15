@@ -36,7 +36,6 @@ const registerUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
         password = '',
         name = '',
         lastName = '',
-        idUser = '',
         idCompany = '',
         possition = '',
         role = ''
@@ -45,7 +44,6 @@ const registerUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
             password: string,
             name: string,
             lastName: string,
-            idUser: string,
             idCompany: string,
             possition: string,
             role: string,
@@ -78,7 +76,6 @@ const registerUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
         password: bcrypt.hashSync( password ),
         name,
         lastName,
-        idUser,
         idCompany,
         possition,
         role

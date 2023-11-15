@@ -21,7 +21,7 @@ export const EmployeeUserList:FC<Props> = ({ users }) => {
                 users.map( user => (
                     <EmployeeUserAvatar
                         user={user}
-                        key={user.idUser}
+                        key={user._id}
                     />
                 ))
             }

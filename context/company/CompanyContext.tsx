@@ -7,7 +7,8 @@ interface ContextProps {
 
      //Methods
      setCompany: ()=>void,
-     unsetCompany: ()=>void
+     unsetCompany: ()=>void,
+     registerCompany: ( companyName: string, email: string) => Promise<{ hasError: boolean; message?: undefined; }>
 
 }
 
