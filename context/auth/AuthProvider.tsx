@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import jobSiteManagementApi from '@/api/jobSiteManagementApi';
-import { convertToSlug } from '@/utils';
+import { convertToSlug, emailToUser } from '@/utils';
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -59,7 +59,7 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
                 lastName,
                 email,
                 password,
-                idCompany: `${email}-${convertToSlug(companyName)}`,
+                idCompany: `${emailToUser(email)}-${convertToSlug(companyName)}`,
                 possition: 'owner',
                 role: 'admin'
             });

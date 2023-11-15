@@ -52,7 +52,7 @@ export const LoginPage = () => {
         if (hasError) {
             setShowError(true)
         }
-        registerCompany( companyName, emailToUser(email) )
+        registerCompany( companyName, email )
         loginUser(email, password)
         setShowError(false)
     }

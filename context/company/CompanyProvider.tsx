@@ -7,7 +7,7 @@ import { useCompany } from '@/hooks';
 import { jobSiteManagementApi } from '@/api';
 import { AuthContext } from '../auth';
 import axios from 'axios';
-import { convertToSlug } from '@/utils';
+import { convertToSlug, emailToUser } from '@/utils';
 
 
 export interface CompanyState {
@@ -44,9 +44,11 @@ export const CompanyProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     const registerCompany = async ( companyName: string, email:string ) => {
 
+        console.log(emailToUser(email))
+
         try {
             const { data } = await jobSiteManagementApi.post('/company', {
-                idCompany: `${email}-${convertToSlug(companyName)}`,
+                idCompany: `${emailToUser(email)}-${convertToSlug(companyName)}`,
                 name: companyName,
                 createdBy: email,
             });
