@@ -23,7 +23,7 @@ interface Props {
 export const UiProvider:FC<Props> = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE)
-    const { projects } = useProjects('/projects')
+    // const { projects } = useProjects('/projects')
     const router = useRouter()
 
     useEffect(() => {
@@ -33,25 +33,25 @@ export const UiProvider:FC<Props> = ({ children }) => {
         }
       }, []);
        
-    useEffect(() => {
-        if ( Object.keys(router.query).length !== 0 ) {
-            if ( router.query.idProject ) {
-                try {
-                    const activeProject = projects.find(project => project.idProject === router.query.idProject)
-                    if (activeProject) {
-                        sessionStorage.setItem('activeProject', JSON.stringify(activeProject))
-                        dispatch({ type: '[UI] - Update Active Project', payload: activeProject  })
-                    } 
-                } catch (error) {
-                    sessionStorage.removeItem('activeProject')
-                    dispatch({ type: '[UI] - Update Active Project', payload: undefined  })
-                }
-            }
-        } else {
-            sessionStorage.removeItem('activeProject')
-            dispatch({ type: '[UI] - Update Active Project', payload: undefined  })
-        }
-    }, [router.asPath]) 
+    // useEffect(() => {
+    //     if ( Object.keys(router.query).length !== 0 ) {
+    //         if ( router.query.idProject ) {
+    //             try {
+    //                 const activeProject = projects.find(project => project.idProject === router.query.idProject)
+    //                 if (activeProject) {
+    //                     sessionStorage.setItem('activeProject', JSON.stringify(activeProject))
+    //                     dispatch({ type: '[UI] - Update Active Project', payload: activeProject  })
+    //                 } 
+    //             } catch (error) {
+    //                 sessionStorage.removeItem('activeProject')
+    //                 dispatch({ type: '[UI] - Update Active Project', payload: undefined  })
+    //             }
+    //         }
+    //     } else {
+    //         sessionStorage.removeItem('activeProject')
+    //         dispatch({ type: '[UI] - Update Active Project', payload: undefined  })
+    //     }
+    // }, [router.asPath]) 
 
     const toggleSideMenu = () => {
         dispatch({ type: '[UI] - ToggleName' })
