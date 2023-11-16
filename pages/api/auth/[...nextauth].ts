@@ -6,7 +6,7 @@ import { dbUsers } from "@/database";
 
 
 export const authOptions = {
-    secret: '78e4621e8c7038ef1265fa926fd61788',
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [    
         Credentials({
             name: 'Custon Login',

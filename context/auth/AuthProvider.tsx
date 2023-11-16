@@ -36,6 +36,8 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
     
     const loginUser = async ( email: string, password: string ) => {
 
+        console.log(process.env.NEXTAUTH_SECRET)
+
         try {
             const data  = await signIn('credentials', {
                 email,
