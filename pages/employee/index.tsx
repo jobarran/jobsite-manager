@@ -11,7 +11,7 @@ import { EmployeeUserList, EmployeeWorkersTable } from '@/components/Employee';
 export const EmployeesPage = () => {
 
     const { users } = useUsers(`/users`)
-    const { employees, error, isLoading } = useEmployees(`/employee`)
+    const { employees, isLoading } = useEmployees(`/employee`)
 
     return (
         <>

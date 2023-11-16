@@ -31,7 +31,7 @@ const getEmployee = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     try {
 
         await db.connect();
-        const employee = await Employee.find()
+        const employee = await Employee.find({})
                                        .select('name lastName idNumber status role field project phone adress birth category entry tags description')
                                        .lean();
     

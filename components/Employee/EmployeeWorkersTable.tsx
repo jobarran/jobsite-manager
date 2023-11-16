@@ -38,7 +38,7 @@ const MOBILE_COLUMNS = {
  
 export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
     
-    const rows: GridRowsProp  = data.map( worker => ({
+    const rows: GridRowsProp  = data.map( (worker:any) => ({
         // key: worker.idNumber,
         id: worker.idNumber,
         name: worker.lastName + ' ' + worker.name,
