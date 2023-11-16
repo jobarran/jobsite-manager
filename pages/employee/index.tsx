@@ -21,7 +21,11 @@ export const EmployeesPage = () => {
             >
             
             <>
-                <EmployeeUserList users={users} />
+                {
+                    users
+                    ? <EmployeeUserList users={users} />
+                    : <></>
+                }
 
                 <Divider></Divider>
                 
