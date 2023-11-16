@@ -18,13 +18,13 @@ export default async function handler(
 
   const session = await getServerSession(req, res, authOptions as any)
 
-  // if (session) {
-  //   console.log("Session", JSON.stringify(session, null, 2))
+  if (session) {
+    console.log("Session", JSON.stringify(session, null, 2))
     
-  //   if( process.env.NODE_ENV === 'production' ){
-  //       return res.status(401).json({ message: 'No tiene acceso a este API'})
+    if( process.env.NODE_ENV === 'production' ){
+        return res.status(401).json({ message: 'No tiene acceso a este API'})
 
-  //   }
+    }
     
     await db.connect();
   
@@ -46,10 +46,10 @@ export default async function handler(
     res.status(200).json({ message: 'Proceso realizado correctamente' })
   
 
-  // } else {
-  //   console.log('Not signed in')
-  //   res.status(401)
-  // }
+  } else {
+    console.log('Not signed in')
+    res.status(401)
+  }
 
   res.end()
 
