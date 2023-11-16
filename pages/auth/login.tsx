@@ -228,7 +228,7 @@ export const LoginPage = () => {
                         <Typography
                             sx={{textAlign: "center", color: theme.palette.info.main}}
                             variant='caption'
-                        >Don't have an account?</Typography>
+                        >{`Dont't have a account?`}</Typography>
                         <Button
                             href="/auth/register"
                             sx={{

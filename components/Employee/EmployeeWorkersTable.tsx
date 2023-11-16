@@ -1,11 +1,9 @@
-import { Avatar, Box, Card, Grid, IconButton, InputAdornment, Modal, OutlinedInput, Rating, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Card, Grid, IconButton, Rating, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridRowId, GridRowsProp, useGridApiRef } from '@mui/x-data-grid';
 import * as React from 'react';
 import { FC, useEffect, useState } from 'react';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 import { useRouter } from 'next/router';
-import dayjs from 'dayjs';
-import { getYearsBetweenDates } from '@/utils';
 import { IEmployee } from '@/interfaces';
 import { DataGridQuickSearch } from '../DataGrid';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
@@ -58,9 +56,9 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
     const [searchBox, setSearchBox] = useState<any[]>([])
     const [openModal, setOpenModal] = React.useState(false);
     const matches = useMediaQuery(theme.breakpoints.up("md"));
-
     const [columnVisible, setColumnVisible] = React.useState(ALL_COLUMNS);
-    React.useEffect(() => {
+
+    useEffect(() => {
         const newColumns = matches ? ALL_COLUMNS : MOBILE_COLUMNS;
         setColumnVisible(newColumns);
     }, [matches]);
