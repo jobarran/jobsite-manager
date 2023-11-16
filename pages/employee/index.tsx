@@ -36,10 +36,9 @@ export const EmployeesPage = () => {
                     sx={{ mb: '1.5rem', mt: '1.5rem' }}>
 
                     {
-                        employees && !isLoading
-                        ?
-                        <EmployeeWorkersTable data={employees} />  
-                        : <></>
+                        isLoading
+                        ? <></>
+                        : <EmployeeWorkersTable data={employees} /> 
                     }
                     
                     

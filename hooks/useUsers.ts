@@ -9,12 +9,12 @@ const fetcher = (...args: [key: string]) => fetch(...args).then(res => res.json(
 export const useUsers = (url: string, config: SWRConfiguration = {} ) => {
 
     // const { data, error, isLoading } = useSWR<IProduct[]>(`/api${ url }`, fetcher, config)
-    const { data, error, isLoading } = useSWRImmutable<IUser[]>(`/api${ url }`, fetcher)
+    const { data, error } = useSWR<IUser[]>(`/api${ url }`, fetcher)
 
     return {
         users: data || [],
-        error,
-        isLoading,
+        isLoading: !error && !data,
+        isError: error
     }
 
 }

@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const { projects, error, isLoading } = useProjects('/projects')
+  const { projects, isLoading } = useProjects('/projects')
 
 
   return (
