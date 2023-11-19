@@ -3,6 +3,7 @@ import { FormControlLabel, Grid, Switch } from "@mui/material"
 import { ProjectCard } from "./ProjectCard";
 import { QuickSearch } from ".";
 import useQuickSearch from "@/hooks/useQuickSearch";
+import { FullScreenLoading } from "../ui";
 
 interface Props {
     projects: any;
@@ -127,6 +128,8 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
             sx={{ mb: '1.5rem' }}>
             
             {
+                filteredData
+                ?
                 filteredData.map( project => (
                     <ProjectCard
                         key={project.name}
@@ -134,6 +137,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                         display={handleDisplay(project)}
                     />
                 ))
+                : <FullScreenLoading />
             }
         </Grid>
     
