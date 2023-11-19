@@ -18,8 +18,11 @@ export default function Home() {
         title={"Jobsite Management"}
         pageDescription={"The construction tool"}
       >
-      
-        <ProjectCardList projects={ projects } />
+      {
+        isLoading
+        ? <></>
+        : <ProjectCardList projects={ projects } />
+      }
 
       </ProjectLayout>
     </>

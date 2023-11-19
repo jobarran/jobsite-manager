@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState, useEffect } from "react"
 import { FormControlLabel, Grid, Switch } from "@mui/material"
 import { ProjectCard } from "./ProjectCard";
 import { QuickSearch } from ".";
@@ -16,6 +16,15 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
     const [finishedDisplay, setFinishedDisplay] = useState(true)
     const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
     const [searchValue, setSearchValue] = useState('');
+
+    useEffect(() => {
+        console.log(filteredData)
+      }, [])
+
+    useEffect(() => {
+      console.log(filteredData)
+    }, [filteredData])
+    
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
