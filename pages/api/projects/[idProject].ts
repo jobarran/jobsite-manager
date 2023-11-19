@@ -31,7 +31,7 @@ const getProjectById = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     await db.connect();
     const { idProject } = req.query
     const project = await Project.findOne({ idProject }).lean()
-    await db.disconnect();
+    db.disconnect();
 
     if( !project ) {
         return res.status(404).json({
