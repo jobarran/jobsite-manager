@@ -20,7 +20,7 @@ export default function Home() {
       >
       {
         isLoading
-        ? <></>
+        ? <FullScreenLoading />
         : <ProjectCardList projects={ projects } />
       }
 

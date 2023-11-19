@@ -15,15 +15,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
     const [finishedDisplay, setFinishedDisplay] = useState(true)
     const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
-    const [searchValue, setSearchValue] = useState('');
-
-    useEffect(() => {
-        console.log(filteredData)
-      }, [])
-
-    useEffect(() => {
-      console.log(filteredData)
-    }, [filteredData])
+    const [searchValue, setSearchValue] = useState('');    
     
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
