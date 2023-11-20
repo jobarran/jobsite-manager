@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export default async function middleware(req: NextRequest) {
 
-  console.log(process.env.NODE_ENV)
   const session = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,

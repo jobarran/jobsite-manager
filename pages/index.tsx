@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const { projects, isLoading } = useProjects('/projects')
+  const { projects, isLoading, error } = useProjects('/projects')
 
 
   return (
@@ -19,9 +19,9 @@ export default function Home() {
         pageDescription={"The construction tool"}
       >
       {
-        isLoading
-        ? <FullScreenLoading />
-        : <ProjectCardList projects={ projects } />
+        projects && !isLoading
+        ? <ProjectCardList projects={ projects } />
+        : <FullScreenLoading />
       }
 
       </ProjectLayout>
