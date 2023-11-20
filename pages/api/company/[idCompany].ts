@@ -31,7 +31,7 @@ const getCompanyById = async (req: NextApiRequest, res: NextApiResponse<Data>) =
     await db.connect();
     const { idCompany } = req.query
     const company = await Company.findOne({ idCompany }).lean()
-    await db.disconnect();
+    // await db.disconnect();
 
     if( !company ) {
         return res.status(404).json({

@@ -7,10 +7,9 @@ export default async function middleware(req: NextRequest) {
     req,
     secret: process.env.NEXTAUTH_SECRET,
     //todo: change cookieName
-    cookieName: 'next-auth.session-token'
+    cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'
+    // cookieName: 'next-auth.session-token'
 })
-
-console.log(session)
 
 if (!session) {
     const requestedPage = req.nextUrl.pathname;

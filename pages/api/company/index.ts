@@ -25,7 +25,6 @@ export default async function handler(
 }
 
 
-
 const createCompany = async(req: NextApiRequest, res: NextApiResponse) => {
 
     try {

@@ -30,12 +30,11 @@ export default async function handler(
 
 const getProjects = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     
-    await db.connect();
+    await db.connect()
 
     const projects = await Project.find()
                             .select('name idProject status')
                             .lean();
-
     await db.disconnect();
 
     return res.status(200).json( projects );
