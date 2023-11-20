@@ -13,11 +13,11 @@ export const uiReducer = ( state:UiState, action: UiActionType): UiState => {
                 ...state,
                 isMenuOpen: !state.isMenuOpen
             }
-        case '[UI] - Update Active Project':
-            return {
-                ...state,
-                activeProject: action.payload
-            }
+        // case '[UI] - Update Active Project':
+        //     return {
+        //         ...state,
+        //         activeProject: action.payload
+        //     }
 
         default:
             return state;

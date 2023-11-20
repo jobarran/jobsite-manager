@@ -8,7 +8,7 @@ import { AuthProvider } from '@/context/auth'
 import { SWRConfig } from 'swr'
 
 
-export default function App({ Component, pageProps: { session, ...pageProps} }: AppProps) {
+function App({ Component, pageProps: { session, ...pageProps} }: AppProps) {
 
   return (
     <SessionProvider session={ pageProps.session }  >
@@ -18,7 +18,7 @@ export default function App({ Component, pageProps: { session, ...pageProps} }: 
         }}
       >
         <AuthProvider>
-        <CompanyProvider>
+          <CompanyProvider>
             <ThemeProvider theme={ lightTheme }>
               <CssBaseline/>
                 <UiProvider>
@@ -32,3 +32,4 @@ export default function App({ Component, pageProps: { session, ...pageProps} }: 
   )
 }
 
+export default App

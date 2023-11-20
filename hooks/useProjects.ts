@@ -13,8 +13,8 @@ export const useProjects = (url: string, config: SWRConfiguration = {} ) => {
 
     return {
         projects: data || [],
-        isLoading: !error && !data,
-        isError: error
+        error,
+        isLoading,
     }
 
 }

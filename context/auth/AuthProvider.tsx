@@ -22,9 +22,8 @@ const AUTH_INITIAL_STATE: AuthState = {
 export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     const [state, dispatch] = useReducer( authReducer, AUTH_INITIAL_STATE )
-    const router = useRouter()
-
     const { data, status } = useSession();
+    const router = useRouter()
 
     useEffect(() => {
       if ( status === 'authenticated' ) {
@@ -36,15 +35,13 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
     
     const loginUser = async ( email: string, password: string ) => {
 
-        console.log(process.env.NEXTAUTH_SECRET)
-
         try {
-            const data  = await signIn('credentials', {
+            const signInRes  = await signIn('credentials', {
                 email,
                 password,
                 redirect: false
             })
-            if ( !data?.ok ) {
+            if ( !signInRes?.ok ) {
                 return {hasError: true}
             }
             return {hasError: false}
@@ -56,7 +53,7 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
     const registerUser = async ( name:string, lastName: string, email:string, password:string, companyName: string ): Promise<{hasError: boolean; message?: string}> => {
 
         try {
-            const { data } = await jobSiteManagementApi.post('/auth/register', {
+            const { data } = await jobSiteManagementApi.post('/users/register', {
                 name,
                 lastName,
                 email,

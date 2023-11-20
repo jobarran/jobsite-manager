@@ -1,15 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { AuthLayout } from "@/components/layouts"
-import { Alert, Box, Button, Chip, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar, Stack, TextField, Typography, createTheme, makeStyles, useTheme } from "@mui/material"
+import { Alert, Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar, Stack, TextField, Typography, createTheme, makeStyles, useTheme } from "@mui/material"
 import { useForm } from 'react-hook-form'
-import { ErrorOutline, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/react';
-import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 import { AuthContext } from '@/context/auth';
-import { jobSiteManagementApi } from '@/api';
-import { convertToSlug, emailToUser } from '@/utils';
-import axios from 'axios';
 import { CompanyContext } from '@/context';
   
 type FormData = {

@@ -36,7 +36,7 @@ const getProjects = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
                             .select('name idProject status')
                             .lean();
 
-    db.disconnect();
+    await db.disconnect();
 
     return res.status(200).json( projects );
 

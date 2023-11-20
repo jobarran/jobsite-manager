@@ -11,8 +11,8 @@ export const authOptions = {
         Credentials({
             name: 'Custon Login',
             credentials: {
-                email: { label:'Correo', type:'email', placeholder: 'correo@google.com' },
-                password: { label:'Contraseña', type:'password', placeholder:'Contraseña' },
+                email: { label:'Email', type:'email', placeholder: 'email@google.com' },
+                password: { label:'Password', type:'password', placeholder:'Password' },
             },
             async authorize(credentials) {
                 return await dbUsers.checkUserEmailPassword(
@@ -42,7 +42,7 @@ export const authOptions = {
     async session({ session, token, user }: any) {
       // Send properties to the client, like an access_token from a provider.
       session.user = token;
-
+      console.log(session)
       return session;
     },
   },

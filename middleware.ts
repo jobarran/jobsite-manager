@@ -3,13 +3,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export default async function middleware(req: NextRequest) {
 
+  console.log(process.env.NODE_ENV)
   const session = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
-    cookieName: process.env.NODE_ENV === 'production' ? '__Secure-next-auth.session-token' : 'next-auth.session-token'
+    //todo: change cookieName
+    cookieName: 'next-auth.session-token'
 })
 
-//console.log(session)
+console.log(session)
 
 if (!session) {
     const requestedPage = req.nextUrl.pathname;
