@@ -50,27 +50,3 @@ export const disconnect = async() => {
 
     console.log('Disconnecting from MongoDB');
 }
-
-export const newConnect = async(req: NextApiRequest, res: NextApiResponse, next: NextFunction) => {
-
-    try {
-        // Connect to MongoDB
-        await mongoose.connect( process.env.MONGO_URL || '');
-        mongoConnection.isConnected = 1;
-        console.log('Connecting to MongoDB:', process.env.MONGO_URL );
-    
-        // Continue with the request handling
-        next();
-      } catch (error) {
-        console.error('Error connecting to MongoDB:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-      } finally {
-        // Disconnect from MongoDB after processing the request
-        console.log('desconectado')
-        await disconnect();
-      }
-
-    // await mongoose.connect( process.env.MONGO_URL || '');
-    // mongoConnection.isConnected = 1;
-    // console.log('Connecting to MongoDB:', process.env.MONGO_URL );
-}
