@@ -14,8 +14,6 @@ const mongoConnection = {
     isConnected: 0
 }
 
-let cachedConnection:any = null;
-
 export const connect = async() => {
 
     if ( mongoConnection.isConnected ) {
@@ -34,20 +32,10 @@ export const connect = async() => {
         await mongoose.disconnect();
     }
 
-    const connection =  await mongoose.connect( process.env.MONGO_URL || '');
+    await mongoose.connect( process.env.MONGO_URL || '');
     mongoConnection.isConnected = 1;
     console.log('Connecting to MongoDB:', process.env.MONGO_URL );
-    cachedConnection = connection;
-    return connection;
 }
-
-export const closeDatabaseConnection = async() => {
-    console.log(cachedConnection)
-    if (cachedConnection) {
-      await cachedConnection.connection.close();
-      console.log('Mongoose connection closed');
-    }
-  }
 
 export const disconnect = async() => {
     
@@ -63,7 +51,3 @@ export const disconnect = async() => {
     console.log('Disconnecting from MongoDB');
 }
 
-export const closeConnection = async() => {
-    console.log('Closing connection')
-    await mongoose.connection.close()
-}
