@@ -32,9 +32,18 @@ export const connect = async() => {
         await mongoose.disconnect();
     }
 
-    await mongoose.connect( process.env.MONGO_URL || '');
-    mongoConnection.isConnected = 1;
-    console.log('Connecting to MongoDB:', process.env.MONGO_URL );
+    try {
+        await mongoose.connect( process.env.MONGO_URL || '');
+        mongoConnection.isConnected = 1;
+        console.log('Connecting to MongoDB:', process.env.MONGO_URL );
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error);
+    } finally {
+        await mongoose.disconnect();
+        mongoConnection.isConnected = 0;
+        console.log('Disconnecting from MongoDB');
+    }
+
 }
 
 export const disconnect = async() => {
