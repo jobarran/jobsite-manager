@@ -7,7 +7,6 @@ export const getCompanyById = async ( idCompany: string): Promise<ICompany | nul
 
     await db.connect()
     const company = await Company.findOne({ idCompany }).lean()
-    await db.disconnect()
 
     if ( !company ) {
         console.log('No company found')

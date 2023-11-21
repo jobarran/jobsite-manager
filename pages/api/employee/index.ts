@@ -35,12 +35,10 @@ const getEmployee = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
                                        .select('name lastName idNumber status role field project phone adress birth category entry tags description')
                                        .lean();
     
-        await db.disconnect();
         return res.status(200).json( employee );
         
     } catch (error) {
         console.log(error);
-        await db.disconnect();
         return res.status(400).json({ message: 'Verify servidor logs' });
     }
 

@@ -28,16 +28,17 @@ type Data =
 
 const getCompanyById = async (req: NextApiRequest, res: NextApiResponse<Data>) => {    
 
-    await db.connect();
-    const { idCompany } = req.query
-    const company = await Company.findOne({ idCompany }).lean()
-    // await db.disconnect();
+    await db.newConnect(req, res, async () => {
 
-    if( !company ) {
-        return res.status(404).json({
-            message: 'Company not found'
-        })
-    }
-    
-    res.status(200).json( company )
-}
+        const { idCompany } = req.query
+        const company = await Company.findOne({ idCompany }).lean()
+
+        if( !company ) {
+            return res.status(404).json({
+                message: 'Company not found'
+            })
+        }
+        
+        return res.status(200).json(company);
+    });
+};

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useSession, signOut, signIn } from 'next-auth/react';
 import jobSiteManagementApi from '@/api/jobSiteManagementApi';
 import { convertToSlug, emailToUser } from '@/utils';
+import { db } from '@/database';
 
 export interface AuthState {
     isLoggedIn: boolean;

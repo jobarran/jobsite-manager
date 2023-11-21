@@ -32,12 +32,10 @@ const getUser = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
 
         await db.connect();
         const user = await User.find({}).lean();
-        await db.disconnect();
         return res.status(200).json( user );
         
     } catch (error) {
         console.log(error);
-        await db.disconnect();
         return res.status(400).json({ message: 'Verify servidor logs' });
     }
 

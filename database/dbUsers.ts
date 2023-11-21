@@ -8,7 +8,6 @@ export const checkUserEmailPassword = async ( email: string, password: string ) 
 
     await db.connect()
     const user = await User.findOne({ email })
-    await db.disconnect()
 
     if ( !user ) {
         return null
@@ -60,7 +59,6 @@ export const getUsersById = async (id: string): Promise<IUser | null>  => {
     console.log(id)
     await db.connect()
     const user = await User.findOne({ _id:id }).lean()
-    await db.disconnect()
 
     if ( !user ) {
         return null;

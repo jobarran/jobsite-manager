@@ -7,7 +7,6 @@ export const getProjectById = async ( idProject: string): Promise<IProject | nul
 
     await db.connect()
     const project = await Project.findOne({ idProject }).lean()
-    await db.disconnect()
 
     if ( !project ) {
         console.log('No project found')
@@ -26,7 +25,6 @@ export const getAllProjects =async (): Promise<IProject[]> => {
                                 .select(' name idProject status -_id')
                                 .lean()
 
-    await db.disconnect();
 
     return projects
     

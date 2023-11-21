@@ -31,13 +31,11 @@ const createCompany = async(req: NextApiRequest, res: NextApiResponse) => {
         await db.connect()
         const company = new Company( req.body );
         await company.save();
-        await db.disconnect();
         res.status(201).json( company );
 
 
     } catch (error) {
         console.log(error);
-        await db.disconnect();
         return res.status(400).json({ message: 'Check server logs' });
      }
 

@@ -32,7 +32,6 @@ const getUserById = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     await db.connect();
     const { id } = req.query
     const user = await User.findOne({ id }).lean()
-    await db.disconnect();
 
     if( !user ) {
         return res.status(404).json({

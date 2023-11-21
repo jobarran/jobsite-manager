@@ -6,11 +6,14 @@ import type { AppProps } from 'next/app'
 import { SessionProvider } from "next-auth/react"
 import { AuthProvider } from '@/context/auth'
 import { SWRConfig } from 'swr'
+import { useEffect } from 'react'
+import mongoose from 'mongoose'
 
 
 function App({ Component, pageProps: { session, ...pageProps} }: AppProps) {
 
   return (
+
     <SessionProvider session={ pageProps.session }  >
       <SWRConfig 
         value={{
