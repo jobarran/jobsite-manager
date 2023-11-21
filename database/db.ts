@@ -39,7 +39,7 @@ export const connect = async() => {
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
     } finally {
-        await mongoose.disconnect();
+        mongoose.disconnect();
         mongoConnection.isConnected = 0;
         console.log('Disconnecting from MongoDB');
     }
