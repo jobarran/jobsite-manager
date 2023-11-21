@@ -3,6 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { Project } from '@/models';
 import { IProject,  } from '@/interfaces';
 import { db, seeeDatabase } from '@/database';
+import { closeDatabaseConnection } from '@/database/db';
 
 
 type Data = 
@@ -30,11 +31,15 @@ export default async function handler(
 
 const getProjects = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     
-    await db.connect()
+    const con = await db.connect();
+    console.log({connectino:con})
 
     const projects = await Project.find()
                             .select('name idProject status -_id')
                             .lean();
+
+    await closeDatabaseConnection();
+
 
     return res.status(200).json( projects );
 
