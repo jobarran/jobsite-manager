@@ -28,10 +28,11 @@ export default async function handler(
 const createCompany = async(req: NextApiRequest, res: NextApiResponse) => {
 
     try {
-        const om = new Company( req.body );
-        await om.save();
+        await db.connect()
+        const company = new Company( req.body );
+        await company.save();
         await db.disconnect();
-        res.status(201).json( om );
+        res.status(201).json( company );
 
 
     } catch (error) {

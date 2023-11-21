@@ -33,7 +33,7 @@ const getProjects = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     await db.connect()
 
     const projects = await Project.find()
-                            .select('name idProject status')
+                            .select('name idProject status -_id')
                             .lean();
     await db.disconnect();
 

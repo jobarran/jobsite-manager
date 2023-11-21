@@ -23,6 +23,7 @@ export const CompanyProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     const [state, dispatch] = useReducer( authReducer, AUTH_INITIAL_STATE )
     const { user } = useContext( AuthContext )
+    const router = useRouter()
 
     useEffect(() => {
         if ( user ) {

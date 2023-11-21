@@ -35,6 +35,9 @@ export const connect = async() => {
 
 export const disconnect = async() => {
     
+    //TODO:: Closing before process is done
+    return;
+
     if ( process.env.NODE_ENV === 'development' ) return;
 
     if ( mongoConnection.isConnected === 0 ) return;
