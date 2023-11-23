@@ -4,6 +4,7 @@ import { UiState } from './';
 type UiActionType =
 | { type: '[UI] - ToggleName' }
 | { type: '[UI] - Update Active Project', payload: IProject | undefined }
+| { type: '[UI] - ToggleProject'}
 
 export const uiReducer = ( state:UiState, action: UiActionType): UiState => {
 
@@ -12,6 +13,11 @@ export const uiReducer = ( state:UiState, action: UiActionType): UiState => {
             return {
                 ...state,
                 isMenuOpen: !state.isMenuOpen
+            }
+        case '[UI] - ToggleProject':
+            return {
+                ...state,
+                isProjectTable: !state.isProjectTable
             }
         // case '[UI] - Update Active Project':
         //     return {

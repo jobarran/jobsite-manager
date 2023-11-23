@@ -28,8 +28,8 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }:any) => {
 
     useEffect(() => {
       if ( status === 'authenticated' ) {
-        router.push( '/' )
-        dispatch({ type: '[Auth] - Login', payload: data?.user as IUser})
+          dispatch({ type: '[Auth] - Login', payload: data?.user as IUser})
+          if ( router.pathname === '/auth/login' || router.pathname === '/auth/register' ) router.push( '/' )
       }
     
     }, [ status, data ])

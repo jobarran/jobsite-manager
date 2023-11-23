@@ -1,8 +1,4 @@
 import mongoose from 'mongoose';
-import { NextApiRequest, NextApiResponse } from 'next';
-
-type NextFunction = (err?: Error) => void;
-
 
 /**
  * 0 = disconnected
@@ -35,6 +31,8 @@ export const connect = async() => {
     await mongoose.connect( process.env.MONGO_URL || '');
     mongoConnection.isConnected = 1;
     console.log('Connecting to MongoDB:', process.env.MONGO_URL );
+
+    
 }
 
 export const disconnect = async() => {

@@ -1,20 +1,56 @@
-import { FC, useState, useEffect } from "react"
-import { FormControlLabel, Grid, Switch } from "@mui/material"
+import { FC, useState, useEffect, useContext, ChangeEvent } from "react"
+import { Avatar, BottomNavigation, BottomNavigationAction, Box, Button, Checkbox, Divider, FormControlLabel, Grid, IconButton, SvgIcon, Switch, Typography } from "@mui/material"
 import { ProjectCard } from "./ProjectCard";
-import { QuickSearch } from ".";
+import { ProjectTable, QuickSearch } from ".";
 import useQuickSearch from "@/hooks/useQuickSearch";
+import { UiContext } from "@/context";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { projectCheckboxItems, projectToggleFilter } from "@/config";
+import { AvatarIcon } from '../ui/AvatarIcon';
+
 
 interface Props {
     projects: any;
 }
 
+interface SwitchState {
+    [key: string]: boolean;
+  }
+
 export const ProjectCardList: FC<Props> = ({ projects }) => {
 
+    const { isProjectTable, toggleProject } = useContext( UiContext )
     const [upcomingDisplay, setUpcomingDisplay] = useState(true)
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
     const [finishedDisplay, setFinishedDisplay] = useState(true)
     const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
-    const [searchValue, setSearchValue] = useState('');    
+    const [searchValue, setSearchValue] = useState('');
+    const [projectCheckbox, setProjectCheckbox] = useState<string>('icon')    
+
+    const [switchStates, setSwitchStates] = useState<SwitchState>(
+        projectToggleFilter.reduce((acc, { value }) => {
+          acc[value] = true;
+          return acc;
+        }, {} as SwitchState)
+      );
+    
+      const handleSwitchChange = (value: string) => {        
+        setSwitchStates((prevStates) => ({
+          ...prevStates,
+          [value]: !prevStates[value],
+        }));
+        if ( value === 'upcoming' ) {
+            setUpcomingDisplay(!upcomingDisplay)
+        } else if ( value === 'ongoing' ) {
+            setOngoingDisplay(!ongoingDisplay)
+        } else if ( value === 'finished' ) {
+            setFinishedDisplay(!finishedDisplay)
+        } return
+      };
     
   
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,17 +65,6 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
       };
 
 
-    const  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if ( event.target.value === 'upcoming' ) {
-            setUpcomingDisplay(event.target.checked)
-        } else if ( event.target.value === 'ongoing' ) {
-            setOngoingDisplay(event.target.checked)
-        } else if ( event.target.value === 'finished' ) {
-            setFinishedDisplay(event.target.checked)
-        } return
-
-    };
-
     const handleDisplay = (project:any) => {
 
         if ( project.status === 'upcoming' ) {
@@ -50,7 +75,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
             return finishedDisplay
         } return true
     }
-      
+    
 
   return (
 
@@ -62,6 +87,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
             justifyContent="center"
             marginBottom={3}
         >
+
             <Grid item xs={1} sm={2} md={3}></Grid>
             <Grid item xs={10} sm={8} md={6}>
                 <QuickSearch
@@ -72,70 +98,104 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
             </Grid>
             <Grid item xs={1} sm={2} md={3}></Grid>
 
-            <Grid item xs={1} sm={3} md={4.5}>
-            </Grid>
-            <Grid item xs={3} sm={2} md={1}>
-                <FormControlLabel
-                    value="upcoming"
-                    control={
-                        <Switch 
-                            checked={upcomingDisplay}
-                            onChange={handleChange}
-                            color="warning"
-                        />
+
+            <Grid item xs={1} sm={0.5} md={2}></Grid>
+            <Grid item xs={10} sm={11} md={8}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        mt: 2
+                    }}
+                >
+
+                    {
+                        projectCheckboxItems.map( item => (
+                            <FormControlLabel
+                                sx={{m:2}}
+                                key={item.value}
+                                value={item.name}
+                                control={
+                                    <Checkbox
+                                        checked={ projectCheckbox === item.value }
+                                        icon={ <item.avatar/> }
+                                        checkedIcon={ <item.avatar/> }
+                                        onClick={ () =>setProjectCheckbox(item.value)}
+                                    />
+                                }
+                                label={
+                                    <Typography sx={{ fontSize: 12 }}>
+                                    {item.name}
+                                    </Typography>
+                                }
+                                labelPlacement="bottom"
+                            />
+                          ))
                     }
-                    label="Upcoming"
-                    labelPlacement="bottom"
-                />
-            </Grid>
-            <Grid item xs={3} sm={2} md={1}>
-                <FormControlLabel
-                    value="ongoing"
-                    control={
-                        <Switch
-                            checked={ongoingDisplay}
-                            onChange={handleChange}
-                            color="primary" 
-                        />
+
+                    <Divider sx={{ display:{xs:'none', sm:'flex'} }} orientation="vertical" flexItem />
+
+                    {
+                        projectToggleFilter.map( item => (
+                            <FormControlLabel
+                                sx={{m:2}}
+                                key={item.value}
+                                value={item.name}
+                                control={
+                                    <Switch 
+                                        size="small"
+                                        checked={switchStates[item.value]}
+                                        onChange={() => handleSwitchChange(item.value)}
+                                        color={item.color}
+                                    />
+                                }
+                                label={
+                                    <Typography sx={{ fontSize: 12 }}>
+                                    {item.name}
+                                    </Typography>
+                                }
+                                labelPlacement="bottom"
+                            />
+                          ))
                     }
-                    label="Ongoing"
-                    labelPlacement="bottom"
-                />
+
+                </Box>
             </Grid>
-            <Grid item xs={3} sm={2} md={1}>
-                <FormControlLabel
-                    value="finished"
-                    control={
-                        <Switch
-                            checked={finishedDisplay}
-                            onChange={handleChange}
-                            color="secondary"
-                        />
-                    }
-                    label="Finished"
-                    labelPlacement="bottom"
-                />
-                </Grid>
-            <Grid item xs={1} sm={3} md={4.5}>
-            </Grid>
+            <Grid item xs={1} sm={0.5} md={2}></Grid>
+
+
         </Grid>
-    
 
         <Grid
             container
             alignItems="center"
             justifyContent="center"
             sx={{ mb: '1.5rem' }}>
+
+                     
             
             {
-                filteredData.map( project => (
+                projectCheckbox === 'icon' 
+
+                ?
+                filteredData.map( project => (                    
                     <ProjectCard
                         key={project.name}
                         project={project}
                         display={handleDisplay(project)}
                     />
                 ))
+                : projectCheckbox === 'table'
+                    ?
+                    <ProjectTable
+                        projects={filteredData}
+                    />
+                    :<></>
             }
+
         </Grid>
     
     </>

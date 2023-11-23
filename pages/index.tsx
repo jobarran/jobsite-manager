@@ -11,7 +11,6 @@ export default function Home() {
 
   const { projects, isLoading, error } = useProjects('/projects')
 
-
   return (
     <>
       <ProjectLayout
