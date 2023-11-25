@@ -13,7 +13,7 @@ export const lightTheme = createTheme({
     },
     secondary: {
       main: '#707072',
-      light: '#aeb9b5',
+      light: '#d2d9d7',
       dark: '#29292b'
     },
     info: {

@@ -1,5 +1,5 @@
 import { AuthContext } from "@/context/auth";
-import { Avatar, Grid, IconButton, Tooltip, useTheme } from "@mui/material"
+import { Avatar, Box, Grid, IconButton, Tooltip, Typography, useTheme } from "@mui/material"
 import { useRouter } from "next/router";
 import { FC, useContext } from "react"
 
@@ -30,17 +30,17 @@ export const ProjectCard: FC<Props> = ({ project, display }) => {
   }
 
   const handleAvatarTextColor = () => {
-    if (user?.role === 'admin') {
-      return theme.palette.background.default
-    }
-    if (user?.role === 'user' && user?.project?.includes(project.idProject)) {
-      return theme.palette.background.default
-    }
+    // if (user?.role === 'admin') {
+    //   return theme.palette.background.default
+    // }
+    // if (user?.role === 'user' && user?.project?.includes(project.idProject)) {
+    //   return theme.palette.background.default
+    // }
     switch (project.status) {
       case 'upcoming':
-        return theme.palette.warning.main
-      case 'ongoing':
         return theme.palette.primary.main
+      case 'ongoing':
+        return theme.palette.info.main
       case 'finished':
         return theme.palette.secondary.light
     }      
@@ -49,9 +49,9 @@ export const ProjectCard: FC<Props> = ({ project, display }) => {
   const handleAvatarBorderColor = () => {
     switch (project.status) {
       case 'upcoming':
-        return theme.palette.warning.main
-      case 'ongoing':
         return theme.palette.primary.main
+      case 'ongoing':
+        return theme.palette.info.main
       case 'finished':
         return theme.palette.secondary.light
     }      
@@ -69,33 +69,45 @@ if (display) {
         item
         xs={3}
         sm={2}
-        md={1}
+        lg={2}
         key={project.name}
-        margin={1}
+        direction={"column"}
+        sx={{
+          m:{xs:1, sm:0.5}
+        }}
       >
-        <IconButton
-          disabled={ user?.role === 'user' && !user?.project?.includes(project.idProject) }
-          onClick={ () => handleClick(`/project/${project.idProject}`)  }
-          sx={{ p: 1 }}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
         >
-          {
-            user?.name 
-            ?
-              <Avatar 
-              sx={{
-                color: handleAvatarTextColor,
-                fontSize: 17,
-                width: 70, height: 70,
-                border: user?.role === 'user' && !user?.project?.includes(project.idProject) ? 2 : 0,
-                borderColor: handleAvatarBorderColor,
-                bgcolor: handleAvatarColor,
-              }}
-              aria-label="recipe">
-                {project.idProject}
-              </Avatar>
-            : <></>
-          }
-        </IconButton>
+          <IconButton
+            disabled={ user?.role === 'user' && !user?.project?.includes(project.idProject) }
+            onClick={ () => handleClick(`/project/${project.idProject}`)  }
+            sx={{ p: 1 }}
+          >
+            {
+              user?.name 
+              ?
+                <Avatar 
+                sx={{
+                  color: handleAvatarTextColor,
+                  fontSize: 13,
+                  width: 55, height: 55,
+                  border: user?.role === 'user' && !user?.project?.includes(project.idProject) ? 2 : 1,
+                  borderColor: handleAvatarBorderColor,
+                  bgcolor: 'transparent',
+                }}
+                aria-label="recipe">
+                  {project.idProject}
+                </Avatar>
+              : <></>
+            }
+          </IconButton>
+          <Typography variant="caption" sx={{ fontSize: 10, display: "flex", alignItems: "center" }}>
+            {project.name}
+          </Typography>
+        </Box>
       </Grid>
     </Tooltip>
 

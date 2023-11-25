@@ -32,7 +32,6 @@ export const QuickSearch:FC<Props> = ({searchValue, handleSearchChange, handleCl
         value={searchValue}
         onChange={handleSearchChange}
         sx={{ 
-          mb:1, 
           height: 35, 
           width: '100%',      
         }}

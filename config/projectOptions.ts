@@ -41,12 +41,12 @@ export const projectToggleFilter: ToggleProps[] = [
     {
         name: "Upcoming",
         value: "upcoming",
-        color: 'warning',
+        color: 'primary',
     },
     {
         name: "Ongoing",
         value: "ongoing",
-        color: 'primary'
+        color: 'info'
     },
     {
         name: "Finished",
