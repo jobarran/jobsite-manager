@@ -17,6 +17,7 @@ interface SeedProject {
     idCompany: string;
     name     : string;
     idProject: string;
+    idClient : string;
     status   : string
 }
 
@@ -186,96 +187,112 @@ export const initialData: SeedData = {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 01',
             idProject: 'PR01',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "upcoming",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 02',
             idProject: 'PR02',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "upcoming",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 03',
             idProject: 'PR03',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 04',
             idProject: 'PR04',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 05',
             idProject: 'PR05',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 06',
             idProject: 'PR06',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 07',
             idProject: 'PR07',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 08',
             idProject: 'PR08',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 09',
             idProject: 'PR09',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "finished",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 10',
             idProject: 'PR10',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "finished",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 11',
             idProject: 'PR11',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 12',
             idProject: 'PR12',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 13',
             idProject: 'PR13',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 14',
             idProject: 'PR14',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "ongoing",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 15',
             idProject: 'PR15',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "finished",
         },
         {
             idCompany: 'jbarrandeguy-company-name-inc',
             name: 'Project 16',
             idProject: 'PR16',
+            idClient: 'jbarrandeguy-company-name-inc-client',
             status: "finished",
         },
     ],

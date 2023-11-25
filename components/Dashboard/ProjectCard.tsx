@@ -71,7 +71,6 @@ if (display) {
         sm={2}
         lg={2}
         key={project.name}
-        direction={"column"}
         sx={{
           m:{xs:1, sm:0.5}
         }}

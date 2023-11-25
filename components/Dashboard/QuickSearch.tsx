@@ -18,16 +18,18 @@ const useOutlinedInputStyles = makeStyles(theme => ({
 interface Props {
   searchValue: any,
   handleSearchChange: any,
-  handleClearSearch: any
+  handleClearSearch: any,
+  disabled: boolean
 }
 
-export const QuickSearch:FC<Props> = ({searchValue, handleSearchChange, handleClearSearch}) => {
+export const QuickSearch:FC<Props> = ({searchValue, handleSearchChange, handleClearSearch, disabled}) => {
 
   const outlinedInputClasses = useOutlinedInputStyles();
 
 
   return (
     <OutlinedInput
+        disabled={disabled}
         classes={outlinedInputClasses}
         value={searchValue}
         onChange={handleSearchChange}

@@ -3,9 +3,11 @@ import mongoose, { Schema, model, Model } from 'mongoose'
 
 
 const userSchema = new Schema({
-    idCompany : { type: String, required: true },
-    name    : { type: String, required: true },
+    idCompany  : { type: String, required: true },
+    name       : { type: String, required: true },
     idProject  : { type: String, required: true, unique: true },
+    idClient   : { type: String, required: true},
+    description: { type: String},
     status     : {
         type: String,
         enum: {

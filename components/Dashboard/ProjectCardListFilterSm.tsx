@@ -64,6 +64,7 @@ export const ProjectCardListFilterSm:FC<Props> = (handleDisplay) => {
                     value="ongoing"
                     control={
                         <Switch
+                            disabled
                             checked={ongoingDisplay}
                             onChange={handleChange}
                             color="primary" 

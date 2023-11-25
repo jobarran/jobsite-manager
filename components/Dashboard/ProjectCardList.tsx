@@ -1,7 +1,7 @@
 import { FC, useState, useEffect, useContext, ChangeEvent } from "react"
 import { Avatar, BottomNavigation, BottomNavigationAction, Box, Button, Checkbox, Divider, FormControlLabel, Grid, IconButton, SvgIcon, Switch, Typography } from "@mui/material"
 import { ProjectCard } from "./ProjectCard";
-import { ProjectTable, QuickSearch } from ".";
+import { NewProject, ProjectTable, QuickSearch } from ".";
 import useQuickSearch from "@/hooks/useQuickSearch";
 import { UiContext } from "@/context";
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -23,27 +23,12 @@ interface SwitchState {
 
 export const ProjectCardList: FC<Props> = ({ projects }) => {
 
-    const { isProjectTable, toggleProject } = useContext( UiContext )
     const [upcomingDisplay, setUpcomingDisplay] = useState(true)
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
     const [finishedDisplay, setFinishedDisplay] = useState(true)
     const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
     const [searchValue, setSearchValue] = useState('');
     const [projectCheckbox, setProjectCheckbox] = useState<string>('icon') 
-    const [ dataRows, setDataRows ] = useState(0)
-
-    useEffect(() => {
-        defineDataRows()
-  }, [finishedDisplay, upcomingDisplay, ongoingDisplay]);
-  
-    const defineDataRows = () => {
-        let count = 0
-        upcomingDisplay ? count += filteredData.filter((obj) => obj.status === 'upcoming').length : count += 0
-        finishedDisplay ? count += filteredData.filter((obj) => obj.status === 'finished').length : count += 0
-        ongoingDisplay ? count += filteredData.filter((obj) => obj.status === 'ongoing').length : count += 0
-
-        console.log(count)
-    }
      
 
     const [switchStates, setSwitchStates] = useState<SwitchState>(
@@ -97,24 +82,23 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
     <>
         <Grid
             container
-            spacing={0}
-            alignItems="center"
-            justifyContent="center"
+            alignItems='center'
+            display="flex"
+            direction="column"
+            // maxWidth={900}
         >
-
-            <Grid item xs="auto"></Grid>
-            <Grid item xs={10} sm={11} md={8}>
+            <Grid
+                container
+                maxWidth={800}
+                alignItems="center"
+                justifyContent="center"
+            >
                 <QuickSearch
                     searchValue={searchValue}
                     handleSearchChange={handleSearchChange}
                     handleClearSearch={handleClearSearch}
+                    disabled={projectCheckbox==='new'}
                 /> 
-            </Grid>
-            <Grid item xs="auto"></Grid>
-
-
-            <Grid item xs="auto"></Grid>
-            <Grid item xs={10} sm={11} md={8}>
                 <Box
                     sx={{
                         display: 'flex',
@@ -125,6 +109,15 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                         mt: 2
                     }}
                 >
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
 
                     {
                         projectCheckboxItems.map( item => (
@@ -150,7 +143,19 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                           ))
                     }
 
+                    </Box>
+
                     <Divider sx={{ ml:2, mr: 2, height:50, display:{xs:'none', sm:'flex'} }} orientation="vertical"  />
+
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
 
                     {
                         projectToggleFilter.map( item => (
@@ -160,6 +165,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                                 value={item.name}
                                 control={
                                     <Switch 
+                                        disabled={projectCheckbox==='new'}
                                         size="small"
                                         checked={switchStates[item.value]}
                                         onChange={() => handleSwitchChange(item.value)}
@@ -177,33 +183,26 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                     }
 
                 </Box>
-            </Grid>
-            <Grid item xs="auto"></Grid>
 
 
-        </Grid>
-
-        <Grid
-            container
-            spacing={0}
-            alignItems="center"
-            justifyContent="center"
-        >
-                
-            <Grid item xs="auto"></Grid>
-            <Grid 
-                container
-                xs={10} sm={11} md={8}
-                display="flex"
-                alignItems="center"
-                justifyContent="space-evenly"
-            >   
+                </Box>
+                <Box
+                    width='100%'
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        mt: 1
+                    }}
+                >
                 
                     {
                         projectCheckbox === 'icon' 
 
                         ?
-                        filteredData.slice(0, dataRows).map( project => (                    
+                        filteredData.map( project => (                    
                             <ProjectCard
                                 key={project.name}
                                 project={project}
@@ -215,11 +214,10 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                             <ProjectTable
                                 projects={filteredData}
                             />
-                            :<></>
+                            : <NewProject/>
                     }
-
+                </Box>
             </Grid>
-            <Grid item xs="auto"></Grid>
         </Grid>
     </>
   )
