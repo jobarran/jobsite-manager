@@ -16,17 +16,12 @@ export const ProjectCard: FC<Props> = ({ project, display }) => {
   const router = useRouter()
 
   const handleAvatarColor = () => {
-    if (user?.role === 'user' && !user?.project?.includes(project.idProject)) {
+    if (project.status === 'ongoing' ) {
+      return theme.palette.info.main
+    } else {
       return theme.palette.background.default
     }
-    switch (project.status) {
-      case 'upcoming':
-        return theme.palette.warning.main
-      case 'ongoing':
-        return theme.palette.primary.main
-      case 'finished':
-        return theme.palette.secondary.light
-    }      
+     
   }
 
   const handleAvatarTextColor = () => {
@@ -40,7 +35,7 @@ export const ProjectCard: FC<Props> = ({ project, display }) => {
       case 'upcoming':
         return theme.palette.primary.main
       case 'ongoing':
-        return theme.palette.info.main
+        return theme.palette.info.light
       case 'finished':
         return theme.palette.secondary.light
     }      
@@ -95,7 +90,7 @@ if (display) {
                   width: 55, height: 55,
                   border: user?.role === 'user' && !user?.project?.includes(project.idProject) ? 2 : 1,
                   borderColor: handleAvatarBorderColor,
-                  bgcolor: 'transparent',
+                  bgcolor: handleAvatarColor,
                 }}
                 aria-label="recipe">
                   {project.idProject}
