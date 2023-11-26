@@ -23,34 +23,4 @@ export const projectCheckboxItems: CheckProps[] = [
         avatar: TableRowsIcon,
         value: "table",
     },
-    {
-        name: "Add new",
-        avatar: AddBoxIcon,
-        value: "new",
-
-    },
-]
-
-interface ToggleProps {
-    name: string,
-    value: string,
-    color: any,    
-}
-
-export const projectToggleFilter: ToggleProps[] = [
-    {
-        name: "Upcoming",
-        value: "upcoming",
-        color: 'primary',
-    },
-    {
-        name: "Ongoing",
-        value: "ongoing",
-        color: 'info'
-    },
-    {
-        name: "Finished",
-        value: "finished",
-        color: 'secondary'
-    },
 ]

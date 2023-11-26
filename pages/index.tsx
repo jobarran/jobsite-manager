@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 import { FullScreenLoading } from '@/components/ui'
 import { useProjects } from '@/hooks'
-import { ProjectCardList } from '@/components/Dashboard'
+import { ProjectCardList } from '@/components/Project'
 import { ProjectLayout } from '@/components/layouts'
 
 
