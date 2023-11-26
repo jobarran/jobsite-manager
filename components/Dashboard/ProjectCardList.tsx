@@ -11,6 +11,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { projectCheckboxItems, projectToggleFilter } from "@/config";
 import { AvatarIcon } from '../ui/AvatarIcon';
+import { sortObjectsByProperty } from "@/utils";
 
 
 interface Props {
@@ -202,7 +203,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
                         projectCheckbox === 'icon' 
 
                         ?
-                        filteredData.map( project => (                    
+                        sortObjectsByProperty(filteredData, 'idProject').map( project => (                    
                             <ProjectCard
                                 key={project.name}
                                 project={project}
