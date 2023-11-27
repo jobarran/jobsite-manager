@@ -3,13 +3,15 @@ import { FullScreenLoading } from '@/components/ui'
 import { useProjects } from '@/hooks'
 import { ProjectCardList } from '@/components/Project'
 import { ProjectLayout } from '@/components/layouts'
+import { useState } from 'react'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const { projects, isLoading, error } = useProjects('/projects')
+  const [isMutating, setIsMutating] = useState(false)
+  const { projects, isLoading, error, mutate } = useProjects('/projects')
 
   return (
     <>
@@ -19,7 +21,7 @@ export default function Home() {
       >
       {
         projects && !isLoading
-        ? <ProjectCardList projects={ projects } />
+        ? <ProjectCardList projects={ projects } setIsMutating={setIsMutating} />
         : <FullScreenLoading />
       }
 

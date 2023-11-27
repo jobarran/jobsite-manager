@@ -1,3 +1,5 @@
 export * from './user'
 export * from './project'
 export * from './employee'
+export * from './client'
+export * from './company'

@@ -1,26 +1,31 @@
-import { FC, useState } from "react"
+import { FC, useState, useContext } from "react"
 
 import { Box, Divider, FormControlLabel, Grid, IconButton, Typography } from "@mui/material"
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-import { ProjectCard, ProjectIcon, ProjectSwitch, ProjectTable, QuickSearch } from ".";
+import { ProjectAddModal, ProjectAddModalNewClient, ProjectCard, ProjectIcon, ProjectSwitch, ProjectTable, QuickSearch } from ".";
 import useQuickSearch from "@/hooks/useQuickSearch";
 import { projectCheckboxItems } from "@/config";
 import { sortObjectsByProperty } from "@/utils";
+import { CompanyContext } from "@/context";
 
 interface Props {
     projects: any;
+    setIsMutating: any
 }
 
-export const ProjectCardList: FC<Props> = ({ projects }) => {
+export const ProjectCardList: FC<Props> = ({ projects, setIsMutating }) => {
 
+    const { company } = useContext( CompanyContext )
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
+    const [openModal, setOpenModal] = useState(false);
     const [ongoingFilterChecked, setOngoingFilterChecked] = useState(true)
     const [ongoingFilterText, setOngoingFilterText] = useState('All')
     const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
     const [searchValue, setSearchValue] = useState('');
     const [projectCheckbox, setProjectCheckbox] = useState<string>('icon') 
-    
+    const [openClientModal, setOpenClientModal] = useState(false)
+
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
       setSearch(value);
@@ -48,9 +53,34 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
         } return true
     }
 
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleOpenNewClientModal = () => {
+        setOpenClientModal(true)
+    }
+
+    const handleCloseNewClientModal = () => {
+        setOpenClientModal(false)
+    }
+
   return (
 
     <>
+        <ProjectAddModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            idCompany={company?.idCompany || ''}
+            setIsMutating={setIsMutating}
+            setOpenClientModal={handleOpenNewClientModal}
+        />
+
+        <ProjectAddModalNewClient
+            openClientModal={openClientModal}
+            handleCloseNewClientModal={handleCloseNewClientModal}
+        />
+
         <Grid
             container
             alignItems='center'
@@ -103,7 +133,7 @@ export const ProjectCardList: FC<Props> = ({ projects }) => {
 
                     <FormControlLabel
                         sx={{m:1}}
-                        control={<IconButton color="info" aria-label="add to shopping cart"><AddBoxIcon /></IconButton>}
+                        control={<IconButton onClick={handleOpenModal} color="info" aria-label="add to shopping cart"><AddBoxIcon /></IconButton>}
                         label={<Typography sx={{ fontSize: 12 }}> Add new </Typography> }
                         labelPlacement="bottom"
                     />
