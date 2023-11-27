@@ -1,11 +1,12 @@
 import { projectStatus } from '@/config';
-import { IProject } from '@/interfaces';
+import { IClient, IProject } from '@/interfaces';
 import { ErrorOutline } from '@mui/icons-material';
 import {  Button, Chip, Divider, FormControl, FormHelperText, Grid, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField, useTheme } from '@mui/material';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useClients } from '@/hooks';
 
 
 
@@ -13,6 +14,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
   export const NewProject = () => {
 
     const { control, register, handleSubmit, reset, formState: { errors }, } = useForm<IProject>()
+    const { clients } = useClients(`/client`)
     const [ showError, setShowError ] = useState(false);
     const theme = useTheme()
 
@@ -135,9 +137,15 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
                           error={ !!errors.idClient }
                       >
                           {
-                              projectStatus.map((status: string) => 
-                                  <MenuItem key={status} value={status}>{status}</MenuItem>
+                                clients.length !== 0
+                                ?
+                                clients.map((client: IClient) => 
+                                  <MenuItem
+                                    key={client.email}
+                                    value={client.email}
+                                >{client.name}</MenuItem>
                               )
+                              : ''
                           }
                       </Select>
                       <FormHelperText error>{ errors.status ? errors.status?.message : '' }</FormHelperText>

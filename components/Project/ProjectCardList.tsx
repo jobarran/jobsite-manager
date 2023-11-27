@@ -11,10 +11,10 @@ import { CompanyContext } from "@/context";
 
 interface Props {
     projects: any;
-    setIsMutating: any
+    setIsProjectMutating: any
 }
 
-export const ProjectCardList: FC<Props> = ({ projects, setIsMutating }) => {
+export const ProjectCardList: FC<Props> = ({ projects, setIsProjectMutating }) => {
 
     const { company } = useContext( CompanyContext )
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
@@ -25,6 +25,8 @@ export const ProjectCardList: FC<Props> = ({ projects, setIsMutating }) => {
     const [searchValue, setSearchValue] = useState('');
     const [projectCheckbox, setProjectCheckbox] = useState<string>('icon') 
     const [openClientModal, setOpenClientModal] = useState(false)
+    const [isClientMutating, setIsClientMutating] = useState(false)
+
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
@@ -72,13 +74,15 @@ export const ProjectCardList: FC<Props> = ({ projects, setIsMutating }) => {
             openModal={openModal}
             setOpenModal={setOpenModal}
             idCompany={company?.idCompany || ''}
-            setIsMutating={setIsMutating}
             setOpenClientModal={handleOpenNewClientModal}
+            isClientMutating={isClientMutating}
+            setIsProjectMutating={setIsProjectMutating}
         />
 
         <ProjectAddModalNewClient
             openClientModal={openClientModal}
             handleCloseNewClientModal={handleCloseNewClientModal}
+            setIsClientMutating={setIsClientMutating}
         />
 
         <Grid

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { db } from '@/database';
 import { IEmployee } from '@/interfaces';
 import Employee from '@/models/Employee';
+import Client from '@/models/Client';
 
 
 type Data = 
@@ -16,7 +17,7 @@ export default async function handler(
 
     switch ( req.method ) {
         case 'GET':
-            return getEmployee( req, res )
+            return getClients( req, res )
         default:
             return res.status(400).json({
                 message: 'Bad request'
@@ -26,16 +27,16 @@ export default async function handler(
 }
 
 
-const getEmployee = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
+const getClients = async(req: NextApiRequest, res: NextApiResponse<Data>) => {
     
     try {
 
         await db.connect();
-        const employee = await Employee.find({})
-                                       .select('name lastName idNumber status role field project phone adress birth category entry tags description')
+        const clients = await Client.find({})
+                                       .select('idCompany name lastName email companyName phone adress description')
                                        .lean();
     
-        return res.status(200).json( employee );
+        return res.status(200).json( clients );
         
     } catch (error) {
         console.log(error);

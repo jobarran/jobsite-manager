@@ -6,6 +6,6 @@ export interface IProject {
     name       : string;
     idProject  : string;
     idClient   : string;
-    description: string
+    description: string;
     status     : string;
 }

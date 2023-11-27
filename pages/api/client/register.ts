@@ -7,6 +7,7 @@ import { User } from '../../../models';
 import { validations } from '../../../utils';
 import { signIn } from 'next-auth/react';
 import { IClient } from '@/interfaces';
+import Client from '@/models/Client';
 
 type Data = 
 | { message: string }
@@ -49,56 +50,48 @@ const registerClient = async(req: NextApiRequest, res: NextApiResponse<Data>) =>
             description:string,
         };
 
-    console.log(req.body)
-
-    // if ( password.length < 6 ) {
-    //     return res.status(400).json({
-    //         message: 'Password must have at least 6 characters'
-    //     });
-    // }
     
-    // if ( !validations.isValidEmail( email ) ) {
-    //     return res.status(400).json({
-    //         message: 'Enter a valid email address'
-    //     });
-    // }
-    
-    
-    // await db.connect();
-    // const user = await User.findOne({ email });
+    await db.connect();
+    const client = await Client.findOne({ email });
 
-    // if ( user ) {
-    //     return res.status(400).json({
-    //         message:'Another account is using the same email'
-    //     })
-    // }
+    if ( client ) {
+        return res.status(400).json({
+            message:'Oops! We already have a client registered with this emai'
+        })
+    }
 
-    // const newUser = new User({
-    //     email: email.toLocaleLowerCase(),
-    //     password: bcrypt.hashSync( password ),
-    //     name,
-    //     lastName,
-    //     idCompany,
-    //     possition,
-    //     role
-    // });
+    const newClient = new Client({
+        email: email.toLocaleLowerCase(),
+        idCompany, 
+        name,
+        lastName, 
+        companyName,
+        phone,
+        address,
+        description,
+    });
 
-    // try {
-    //     await newUser.save({ validateBeforeSave: true });
-    // } catch (error) {
-    //     console.log(error);
-    //     return res.status(500).json({
-    //         message: 'Check server logs'
-    //     })
-    // }
+    try {
+        await newClient.save({ validateBeforeSave: true });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: 'Check server logs'
+        })
+    }
 
 
-    // return res.status(200).json({
-    //     user: {
-    //         email, 
-    //         role, 
-    //         name,
-    //     }
-    // })
+    return res.status(200).json({
+        client: {
+            email, 
+            idCompany, 
+            name,
+            lastName, 
+            companyName,
+            phone,
+            address,
+            description,
+        }
+    })
 
 }

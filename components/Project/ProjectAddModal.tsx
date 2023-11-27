@@ -1,11 +1,14 @@
 import { projectStatus } from "@/config";
-import { IProject } from "@/interfaces";
+import { IClient, IProject } from "@/interfaces";
 import { ErrorOutline } from "@mui/icons-material";
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Divider, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ProjectAddModalNewClient } from ".";
+import { useClients } from "@/hooks";
+import { jobSiteManagementApi } from "@/api";
+import { CompanyContext } from "@/context";
 
 
 
@@ -13,46 +16,49 @@ interface Props {
     openModal: boolean,
     setOpenModal: any,
     idCompany: string,
-    setIsMutating: any,
+    isClientMutating: any,
     setOpenClientModal: any,
+    setIsProjectMutating: any
 }
 
 
-export const ProjectAddModal:FC<Props> = ({ openModal, setOpenModal, idCompany, setIsMutating, setOpenClientModal}) => {
+export const ProjectAddModal:FC<Props> = ({ openModal, setOpenModal, idCompany, isClientMutating, setOpenClientModal, setIsProjectMutating}) => {
 
 
     const { control, register, handleSubmit, reset, formState: { errors }, } = useForm<IProject>()
+    const { clients, mutate } = useClients(`/client`)
     const [ showError, setShowError ] = useState(false);
+    const { company } = useContext( CompanyContext )
+
+
+    useEffect(() => {
+        mutate()
+    }, [isClientMutating])    
     
     
     const onSubmit: SubmitHandler<IProject> = async(data) => {
 
         try {
             setShowError(false)
-            // const submitted = await adminObraApi.post(`/om`, {
-            //     ...data,
-            //     idObra     : idObra,
-            //     name       : 'OM-'+ idObra + '-' + omName(data.name),
-            //     revision   : omRevision(data.revision),
-            //     floor      : data.floor,
-            //     sector     : data.sector,
-            //     description: data.description,
-            //     status     : '-',
-            //     necesidad  : '-',
-            //     pedido     : '-',
-            //     element    : elementRows
+            const submitted = await jobSiteManagementApi.post(`/project/register`, {
+                ...data,
+                idCompany  : company?.idCompany || '',
+                name       : data.name,
+                idProject  : data.idProject,
+                idClient   : data.idClient,
+                description: data.description,
+                status     : data.status
   
-            // })
+            })
   
-            // if (submitted.statusText === 'Created') {
-            //     setIsMutating(true)
-            //     setTimeout(() => {
-            //         setIsMutating(false)
-            //     }, 1000);
-            //     setOpenModal(false)
-            //     reset()
-            //     setElementRows([])
-            // }
+            if (submitted.statusText === 'OK') {
+                handleClose()
+                setIsProjectMutating(true)
+                setTimeout(() => {
+                    setIsProjectMutating(false)
+                }, 1000);
+            }
+
         } catch (error) {
             setShowError(true)
             setTimeout(() => {
@@ -154,9 +160,21 @@ export const ProjectAddModal:FC<Props> = ({ openModal, setOpenModal, idCompany, 
                                     error={ !!errors.idClient }
                                 >
                                     {
-                                        projectStatus.map((status: string) => 
-                                            <MenuItem key={status} value={status}>{status}</MenuItem>
-                                        )
+                                        clients.length !== 0
+                                            ?
+                                                clients.map((client: IClient) => 
+                                                    <MenuItem
+                                                        key={client.email}
+                                                        value={client.email}
+                                                    >
+                                                        {
+                                                            client.companyName !== ''
+                                                            ? client.companyName
+                                                            : client.name + ' ' + client.lastName
+                                                        }
+                                                    </MenuItem>
+                                                )
+                                            :''
                                     }
                                 </Select>
                                 <FormHelperText error>{ errors.status ? errors.status?.message : '' }</FormHelperText>

@@ -1,32 +1,38 @@
 import { jobSiteManagementApi } from "@/api";
 import { projectStatus } from "@/config";
+import { CompanyContext } from "@/context";
 import { IClient } from "@/interfaces";
 import { ErrorOutline } from "@mui/icons-material";
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 
 
 interface Props {
     openClientModal: boolean
-    handleCloseNewClientModal: any
+    handleCloseNewClientModal: any,
+    setIsClientMutating: any
 }
 
-export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleCloseNewClientModal}) => {
+export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleCloseNewClientModal, setIsClientMutating}) => {
 
 
     const { control, register, handleSubmit, reset, formState: { errors }, } = useForm<IClient>()
     const [ showError, setShowError ] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('')
+    const { company } = useContext( CompanyContext )
+
     
     
     const onSubmit: SubmitHandler<IClient> = async(data) => {
 
         try {
             setShowError(false)
+            setErrorMessage('')
             const submitted = await jobSiteManagementApi.post(`/client/register`, {
                 ...data,
-                idCompany  : data.idCompany,
+                idCompany  : company?.idCompany || '',
                 name       : data.name,
                 lastName   : data.lastName,
                 email      : data.email,
@@ -36,12 +42,19 @@ export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleClos
                 description: data.description
   
             })
+
+            console.log(submitted)
   
-            if (submitted.statusText === 'Created') {
-                handleCloseNewClientModal()
-                reset()
+            if (submitted.statusText === 'OK') {
+                onCloseModal()
+                setIsClientMutating(true)
+                setTimeout(() => {
+                    setIsClientMutating(false)
+                }, 1000);
             }
-        } catch (error) {
+
+        } catch (error:any) {
+            setErrorMessage(error.response.data.message)
             setShowError(true)
             setTimeout(() => {
                 setShowError(false)
@@ -70,7 +83,7 @@ export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleClos
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <Chip 
-                                label="Ya tenemos una OM registrada con ese nombre"
+                                label={errorMessage}
                                 color="error"
                                 icon={ <ErrorOutline /> }
                                 className="fadeIn"
@@ -108,10 +121,16 @@ export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleClos
                                 <TextField
                                     size='small'
                                     label="Email"
+                                    type="email"
                                     variant="outlined"
+                                    
                                     fullWidth 
                                     { ...register('email', {
                                         required: 'Field required',
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "invalid email address"
+                                        }
                                     })}
                                     error={ !!errors.email }
                                     helperText={ errors.email?.message }

@@ -25,7 +25,7 @@ interface Props {
 export const UiProvider:FC<Props> = ({ children }) => {
 
     const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE)
-    const { projects } = useProjects('/projects')
+    const { projects } = useProjects('/project')
     const router = useRouter()
 
     useEffect(() => {
