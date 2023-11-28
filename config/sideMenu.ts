@@ -44,7 +44,7 @@ export const sideMenuAdmin: Props[] = [
     {
         name: "Clients",
         avatar: HandshakeIcon,
-        url: "/",
+        url: "/client",
     },
     {
         name: "Settings",
