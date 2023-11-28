@@ -1,4 +1,4 @@
-import { FC, useState, useContext } from "react"
+import { FC, useState, useContext, useEffect } from "react"
 
 import { Box, Divider, FormControlLabel, Grid, IconButton, Typography } from "@mui/material"
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -11,21 +11,28 @@ import { CompanyContext } from "@/context";
 
 interface Props {
     projects: any;
-    setIsProjectMutating: any
+    setIsProjectMutating: any,
+    isProjectMutating: any,
+    mutate: any
 }
 
-export const ProjectCardList: FC<Props> = ({ projects, setIsProjectMutating }) => {
+export const ProjectCardList: FC<Props> = ({ projects, setIsProjectMutating, isProjectMutating, mutate }) => {
 
     const { company } = useContext( CompanyContext )
     const [ongoingDisplay, setOngoingDisplay] = useState(true)
     const [openModal, setOpenModal] = useState(false);
     const [ongoingFilterChecked, setOngoingFilterChecked] = useState(true)
     const [ongoingFilterText, setOngoingFilterText] = useState('All')
-    const [filteredData, setSearch, clearSearch] = useQuickSearch(projects);
+    const [filteredData, setSearch, clearSearch, setNewData] = useQuickSearch(projects);
     const [searchValue, setSearchValue] = useState('');
     const [projectCheckbox, setProjectCheckbox] = useState<string>('icon') 
     const [openClientModal, setOpenClientModal] = useState(false)
     const [isClientMutating, setIsClientMutating] = useState(false)
+
+    useEffect(() => {
+        mutate()
+        setNewData(projects)
+    }, [isProjectMutating]) 
 
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -16,6 +16,8 @@ import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import ChecklistRtlOutlinedIcon from '@mui/icons-material/ChecklistRtlOutlined';
 import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 
 interface Props {
     name: string,
@@ -35,8 +37,13 @@ export const sideMenuAdmin: Props[] = [
         url: "/employee",
     },
     {
-        name: "Subcontractor",
+        name: "Subcontractors",
         avatar: GroupOutlinedIcon,
+        url: "/",
+    },
+    {
+        name: "Clients",
+        avatar: HandshakeIcon,
         url: "/",
     },
     {

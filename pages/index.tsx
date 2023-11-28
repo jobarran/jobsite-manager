@@ -12,11 +12,6 @@ export default function Home() {
 
   const [isProjectMutating, setIsProjectMutating] = useState(false)
   const { projects, isLoading, error, mutate } = useProjects('/project')
-  
-
-  useEffect(() => {
-    mutate()
-}, [isProjectMutating]) 
 
   return (
     <>
@@ -26,7 +21,12 @@ export default function Home() {
       >
       {
         projects && !isLoading
-        ? <ProjectCardList projects={ projects } setIsProjectMutating={setIsProjectMutating} />
+        ? <ProjectCardList
+          projects={ projects }
+          setIsProjectMutating={setIsProjectMutating}
+          mutate={mutate}
+          isProjectMutating={isProjectMutating}
+        />
         : <FullScreenLoading />
       }
 

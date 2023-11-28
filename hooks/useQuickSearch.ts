@@ -6,7 +6,7 @@ type ObjectType = {
 
 const useQuickSearch = <T extends ObjectType>(
   initialData: T[],
-): [T[], (searchValue: string) => void, () => void] => {
+): [T[], (searchValue: string) => void, () => void, (newData: T[]) => void] => {
   const [data, setData] = useState<T[]>(initialData);
   const [searchValue, setSearchValue] = useState<string>('');
 
@@ -29,7 +29,11 @@ const useQuickSearch = <T extends ObjectType>(
     setSearch('');
   };
 
-  return [filteredData, setSearch, clearSearch];
+  const setNewData = (newData: T[]) => {
+    setData(newData);
+  };
+
+  return [filteredData, setSearch, clearSearch, setNewData];
 };
 
 export default useQuickSearch;
