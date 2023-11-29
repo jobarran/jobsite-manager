@@ -66,11 +66,14 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
                         alignItems="center"
                         justifyContent="center"
                     >
+                        <EmployeeUserList users={users}/>
+                        
                         <QuickSearch
                             searchValue={searchValue}
                             handleSearchChange={handleSearchChange}
                             handleClearSearch={handleClearSearch}
                         /> 
+
                         <Box
                             width='100%'
                             sx={{
@@ -83,7 +86,14 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
                             }}
                         >
                             
-                            <EmployeeUserList users={users}/>
+                            <FormControlLabel
+                                sx={{m:1}}
+                                control={<IconButton onClick={handleOpenNewClientModal} color="info" aria-label="add to shopping cart"><AddBoxIcon /></IconButton>}
+                                label={<Typography sx={{ fontSize: 12 }}> Add new </Typography> }
+                                labelPlacement="bottom"
+                            />
+                            
+                            
                             <EmployeeWorkersDataGrid data={filteredData} /> 
                             
                         </Box>

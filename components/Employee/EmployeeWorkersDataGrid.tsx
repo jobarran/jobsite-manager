@@ -19,7 +19,7 @@ const MOBILE_COLUMNS = {
     status: false,
     project: true,
     field: false,
-    role: true,
+    role: false,
     actions: true,
   };
   const ALL_COLUMNS = {

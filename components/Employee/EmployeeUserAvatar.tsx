@@ -48,7 +48,7 @@ export const EmployeeUserAvatar: FC<Props> = ({ user }) => {
         md={1}
         lg={1}
       >
-        <Tooltip title={`${user.name} ${user.lastName}`} arrow>
+        <Tooltip title={<div>{user.name} {user.lastName}<br />{user.possition}</div>} arrow>
           <IconButton
             onClick={ () => handleClick(`/user/${user._id}`)  }
             sx={{ p: 0.5 }}

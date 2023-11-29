@@ -15,7 +15,7 @@ export const EmployeeUserList:FC<Props> = ({ users }) => {
             container
             alignItems="center"
             justifyContent="center"
-            sx={{ mt: 2 }}
+            sx={{ mb: 3 }}
         >
             
             {

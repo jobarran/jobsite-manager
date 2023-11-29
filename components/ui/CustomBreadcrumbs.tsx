@@ -17,7 +17,6 @@ export const CustomBreadCrumbs: FC<Props> = ({references}) => {
     return (
 
         <>
-            <div role="presentation" >
                 <Breadcrumbs aria-label="breadcrumb"  sx={{ mb: 2 }}>
                     {
                         references.map( ref => (
@@ -30,7 +29,6 @@ export const CustomBreadCrumbs: FC<Props> = ({references}) => {
                         ))
                     }
                 </Breadcrumbs>
-            </div>
         </>
 
     )
