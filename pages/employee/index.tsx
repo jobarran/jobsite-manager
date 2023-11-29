@@ -1,8 +1,8 @@
 import { Avatar, Divider, Grid, IconButton, Typography } from '@mui/material';
 import { ProjectLayout } from "@/components/layouts";
 import { useClients, useEmployees, useUsers } from '@/hooks';
-import { EmployeeUserList, EmployeeWorkersTable } from '@/components/Employee';
-import { CustomDataGrid } from '@/components/DataGrid';
+import { EmployeeComponents, EmployeeUserList, EmployeeWorkersDataGrid } from '@/components/Employee';
+import { FullScreenLoading } from '@/components/ui';
 
 
 
@@ -12,34 +12,29 @@ import { CustomDataGrid } from '@/components/DataGrid';
 export const EmployeesPage = () => {
 
     const { users } = useUsers(`/users`)
-    const { clients, isLoading } = useClients(`/client`)
+    const { employees, isLoading, mutate } = useEmployees(`/employee`)
 
     return (
+
         <>
             <ProjectLayout
                 title={"Jobsite Management - Employees"}
                 pageDescription={"The construction tool"}
             >
-            
-                
-                <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="center"
-                    sx={{ mb: '1.5rem', mt: '1.5rem' }}>
 
-                    {
-                        isLoading
-                        ? <></>
-                        : <CustomDataGrid data={clients} /> 
-                    }
-                    
-                    
-                    
-                </Grid>
+                {
+                    employees && !isLoading
+                        ? <EmployeeComponents
+                            employees={employees}
+                            mutate={mutate}
+                            users={users}
+                        /> 
+                        : <FullScreenLoading />
+                }
 
             </ProjectLayout>
     </>
+    
     )
 }
   

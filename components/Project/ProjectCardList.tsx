@@ -3,11 +3,12 @@ import { FC, useState, useContext, useEffect } from "react"
 import { Box, Divider, FormControlLabel, Grid, IconButton, Typography } from "@mui/material"
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-import { ProjectAddModal, ProjectAddModalNewClient, ProjectCard, ProjectIcon, ProjectSwitch, ProjectTable, QuickSearch } from ".";
+import { ProjectAddModal, ProjectAddModalNewClient, ProjectCard, ProjectIcon, ProjectSwitch, ProjectTable } from ".";
 import useQuickSearch from "@/hooks/useQuickSearch";
 import { projectCheckboxItems } from "@/config";
 import { sortObjectsByProperty } from "@/utils";
 import { CompanyContext } from "@/context";
+import { QuickSearch } from "../ui";
 
 interface Props {
     projects: any;
@@ -108,7 +109,6 @@ export const ProjectCardList: FC<Props> = ({ projects, setIsProjectMutating, isP
                     searchValue={searchValue}
                     handleSearchChange={handleSearchChange}
                     handleClearSearch={handleClearSearch}
-                    disabled={projectCheckbox==='new'}
                 /> 
                 <Box
                     sx={{

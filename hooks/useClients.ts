@@ -9,13 +9,13 @@ const fetcher = (...args: [key: string]) => fetch(...args).then(res => res.json(
 export const useClients = (url: string, config: SWRConfiguration = {} ) => {
 
     // const { data, error, isLoading } = useSWR<IProduct[]>(`/api${ url }`, fetcher, config)
-    const { data, error, mutate } = useSWR<IClient[]>(`/api${ url }`, fetcher)
+    const { data, error, mutate, isLoading } = useSWR<IClient[]>(`/api${ url }`, fetcher)
 
     return {
         clients: data || [],
-        isLoading: !error && !data,
-        isError: error,
-        mutate,
+        error,
+        isLoading,
+        mutate
     }
 
 }

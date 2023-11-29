@@ -14,3 +14,5 @@ export * from './AvatarIcon'
 
 export * from './CustomBreadcrumbs'
 
+export * from './QuickSearch'
+

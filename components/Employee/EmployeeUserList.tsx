@@ -15,7 +15,8 @@ export const EmployeeUserList:FC<Props> = ({ users }) => {
             container
             alignItems="center"
             justifyContent="center"
-            sx={{ mb: '1.5rem' }}>
+            sx={{ mt: 2 }}
+        >
             
             {
                 users.map( user => (

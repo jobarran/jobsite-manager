@@ -15,12 +15,20 @@ export const EmployeeUserAvatar: FC<Props> = ({ user }) => {
   const router = useRouter()
 
   const handleAvatarColor = () => {
-
     switch (user.role) {
       case 'admin':
-        return theme.palette.warning.main
+        return theme.palette.info.main
       case 'user':
-        return theme.palette.primary.main
+        return 'transparent'
+    }      
+  }
+
+  const handleAvatarBorder = () => {
+    switch (user.role) {
+      case 'admin':
+        return theme.palette.info.light
+      case 'user':
+        return theme.palette.info.main
     }      
   }
 
@@ -35,46 +43,35 @@ export const EmployeeUserAvatar: FC<Props> = ({ user }) => {
       <Grid
         item
         textAlign="center"
-        xs={3}
-        sm={2}
-        md={1.5}
+        xs={2}
+        sm={1}
+        md={1}
         lg={1}
       >
-        <IconButton
-          onClick={ () => handleClick(`/user/${user._id}`)  }
-          sx={{ p: 0.5 }}
-        >
-          {
-            user?.name 
-            ?
-              <Avatar 
-              sx={{
-                color: theme.palette.background.default,
-                fontSize: 25,
-                width: 70, height: 70,
-                bgcolor: handleAvatarColor,
-              }}
-              aria-label="recipe">
-                {user.name[0]}{user.lastName[0]}
-              </Avatar>
-            : <></>
-          }
-        </IconButton>
-
-        <Card sx={{ bgcolor:theme.palette.background.default, boxShadow: 0, height: 80, display:{xs:'none', sm:'block'} }}>
-          <CardContent>
-            <Typography sx={{ fontSize: 12 }} color="text.primary">
-              {user.name}
-            </Typography>
-            <Typography sx={{ fontSize: 12 }} color="text.primary">
-              {user.lastName}
-            </Typography>
-            <Typography sx={{ fontSize: 11 }} color="text.secondary">
-              {user.possition}
-            </Typography>
-          </CardContent>
-        </Card>
-
+        <Tooltip title={`${user.name} ${user.lastName}`} arrow>
+          <IconButton
+            onClick={ () => handleClick(`/user/${user._id}`)  }
+            sx={{ p: 0.5 }}
+          >
+            {
+              user?.name 
+              ?
+                <Avatar 
+                  sx={{
+                    color: handleAvatarBorder,
+                    fontSize: 15,
+                    width: 40, height: 40,
+                    bgcolor: handleAvatarColor,
+                    border: 1,
+                    borderColor: handleAvatarBorder,
+                  }}
+                  aria-label="recipe">
+                    {user.name[0]}{user.lastName[0]}
+                </Avatar>
+              : <></>
+            }
+          </IconButton>
+        </Tooltip>
       </Grid>
 
   )

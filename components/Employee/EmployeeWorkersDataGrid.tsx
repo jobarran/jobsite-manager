@@ -14,14 +14,12 @@ interface Props {
 }
 
 const MOBILE_COLUMNS = {
-    id: true,
+    id: false,
     name: true,
     status: false,
     project: true,
-    field: true,
+    field: false,
     role: true,
-    attendance: false,
-    score: false,
     actions: true,
   };
   const ALL_COLUMNS = {
@@ -31,12 +29,10 @@ const MOBILE_COLUMNS = {
     project: true,
     field: true,
     role: true,
-    attendance: true,
-    score: true,
     actions: true,
   };
  
-export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
+export const EmployeeWorkersDataGrid:FC<Props> = ({ data }) => {
     
     const rows: GridRowsProp  = data.map( (worker:any) => ({
         // key: worker.idNumber,
@@ -46,8 +42,6 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
         project: worker.project,
         field: worker.field,
         role: worker.role,
-        attendance: '30%',
-        score: 4,
     }))
 
     const apiRef = useGridApiRef();
@@ -88,7 +82,7 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
             field: 'name',
             headerName: 'Name',
             flex: 1,
-            minWidth: 170,
+            minWidth: 160,
             editable: false,
         },
         {
@@ -128,35 +122,6 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
             hideSortIcons: true
         },
         {
-            field: 'attendance',
-            headerName: 'Attendance',
-            flex: 1,
-            minWidth: 70,
-            maxWidth: 100,
-            editable: false,
-            disableColumnMenu: true,
-            hideSortIcons: true
-        },
-        {
-            field: 'score',
-            headerName: 'Score',
-            flex: 1,
-            minWidth: 70,
-            maxWidth: 100,
-            editable: false,
-            disableColumnMenu: true,
-            hideSortIcons: true,
-            renderCell: (params: GridRenderCellParams) => (
-                <Rating
-                    name="half-rating-read"
-                    defaultValue={params.value}
-                    precision={0.5}
-                    readOnly 
-                    size="small"
-                />
-              )     
-        },
-        {
             field: 'actions',
             headerName: 'Open',
             type: 'actions',
@@ -188,60 +153,7 @@ export const EmployeeWorkersTable:FC<Props> = ({ data }) => {
 
     <Grid item xs={12}>
 
-        <Grid container>
-
-
-            <Grid item xs={2}>
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'row'
-                }}>
-                    <Avatar>
-                        <PersonIcon />
-                    </Avatar>
-                    <Typography
-                        sx={{mt:1, ml:1}}
-                        variant='body1'
-                    >
-                        Workers
-                    </Typography>   
-                </Box>   
-            </Grid>
-
-            <Grid item flex={1}>
-            </Grid>
-
-
-            <Grid item xs={1} >
-                <Box display="flex" justifyContent="flex-end">
-                    <IconButton
-                        sx={{
-                            mt:0.5,
-                            color: theme.palette.info.main
-                        }}
-                        onClick={handleOpenModal}
-                    >
-                        <PersonAddAlt1Icon />
-                    </IconButton>
-                </Box>
-            </Grid>
-
-            <Grid item xs={5} md={4} lg={3}>
-                <Box display="flex" justifyContent="flex-end">
-                    <DataGridQuickSearch
-                        data={ searchBox }
-                        handleSearchInputChange={ handleSearchInputChange }
-                        handleDataReset={ setSearchBox }
-                    />
-                </Box>
-            </Grid>
-
-        </Grid>
-            
-
         <Card sx={{ boxShadow: 0, mt:2}}>
-
-            
             
             <div style={{ width: '100%' }}>
                 <DataGrid

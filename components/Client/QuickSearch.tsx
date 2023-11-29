@@ -28,7 +28,7 @@ export const QuickSearch:FC<Props> = ({searchValue, handleSearchChange, handleCl
 
   return (
     <OutlinedInput
-        classes={outlinedInputClasses}
+        // classes={outlinedInputClasses}
         value={searchValue}
         onChange={handleSearchChange}
         sx={{ 
