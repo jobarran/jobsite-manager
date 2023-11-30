@@ -1,13 +1,11 @@
 import { Avatar, Divider, Grid, IconButton, Typography, CardContent, Button, Card, CardHeader, useTheme } from '@mui/material';
 import { ProjectLayout } from "@/components/layouts";
-import { useUsers } from '@/hooks';
 import { GetServerSideProps, NextPage } from 'next';
 import { dbEmployee } from '@/database';
 import { IEmployee } from '@/interfaces';
-import { capitalize, yearDif } from '@/utils';
+import { yearDif } from '@/utils';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
-import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+
 import { CustomBreadCrumbs } from '@/components/ui';
 import { useRouter } from 'next/router';
 
@@ -33,7 +31,7 @@ export const EmployeePage:NextPage<Props> = ({employee}) => {
             pageDescription={"The construction tool"}
             >
 
-            <CustomBreadCrumbs references={ breadcrumbsRef }/>
+            {/* <CustomBreadCrumbs references={ breadcrumbsRef }/> */}
 
             <Grid container spacing={2}>
                 <Grid container item spacing={2} xs={12} lg={3}>
