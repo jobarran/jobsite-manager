@@ -7,7 +7,6 @@ export const getEmployeeById = async (idNumber: string): Promise<IEmployee | nul
 
     await db.connect()
     const employee = await Employee.findOne({ idNumber }).lean()
-    await db.disconnect()
 
     if ( !employee ) {
         return null;

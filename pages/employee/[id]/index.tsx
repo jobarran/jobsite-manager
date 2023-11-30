@@ -31,7 +31,7 @@ export const EmployeePage:NextPage<Props> = ({employee}) => {
             pageDescription={"The construction tool"}
             >
 
-            {/* <CustomBreadCrumbs references={ breadcrumbsRef }/> */}
+            <CustomBreadCrumbs references={ breadcrumbsRef }/>
 
             <Grid container spacing={2}>
                 <Grid container item spacing={2} xs={12} lg={3}>
