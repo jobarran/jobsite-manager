@@ -19,6 +19,8 @@ export default async function handler(
             return getEmployee( req, res )
         case 'PUT':
             return editEmployee( req, res )
+        case 'DELETE':
+            return deleteEmployee( req, res )
         default:
             return res.status(400).json({
                 message: 'Bad request'
@@ -57,6 +59,26 @@ const editEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
 
         const updateEmployee = await Employee.findOneAndUpdate({idNumber: req.body.values.idNumber}, req.body.values, { new: true });
         res.status(200).json({ message: 'Employee Updated' });
+
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ message: 'Check server logs' });
+    }
+
+}
+
+const deleteEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
+
+    try {
+        await db.connect();
+        const employee = await Employee.findOne({idNumber: req.body.values.idNumber});
+        if ( !employee ) {
+            return res.status(400).json({message: 'There is no employee with that ID'});
+        }
+
+        await Employee.findOneAndDelete({idNumber: req.body.values.idNumber});
+        res.status(200).json({ message: 'Employee deleted' });
 
         
     } catch (error) {

@@ -9,6 +9,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import { CustomBreadCrumbs } from '@/components/ui';
 import { useRouter } from 'next/router';
 import { EmployeeProfileData, EmployeeProfileSettings } from '@/components/Employee';
+import { useEmployees } from '@/hooks';
 
 interface Props {
     employee: IEmployee
@@ -18,6 +19,8 @@ export const EmployeePage:NextPage<Props> = ({employee}) => {
 
     const theme = useTheme()
     const router = useRouter()
+    const { mutate } = useEmployees(`/employee`)
+
 
     const breadcrumbsRef = [
         { key: 'employees', name: 'Employees', link: '/employee' },
@@ -37,7 +40,8 @@ export const EmployeePage:NextPage<Props> = ({employee}) => {
             <Grid container spacing={2}>
                 
                 <EmployeeProfileData employee={employee}/>
-                <EmployeeProfileSettings employee={employee}/>
+                <EmployeeProfileSettings employee={employee} mutate={mutate}
+/>
   
             </Grid>
 
