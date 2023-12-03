@@ -34,7 +34,7 @@ export const EmployeeDeleteConfirmationModal:FC<Props> = ({name, lastName, handl
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Once you have done this, you won't be able to go back
+              Once you have done this, you won&apos;t be able to go back
             </DialogContentText>
           </DialogContent>
           <DialogActions>

@@ -83,6 +83,7 @@ const registerClient = async(req: NextApiRequest, res: NextApiResponse<Data>) =>
 
     return res.status(200).json({
         client: {
+            _id: newClient._id.toString(),
             email, 
             idCompany, 
             name,
