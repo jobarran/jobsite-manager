@@ -36,7 +36,7 @@ const ALL_COLUMNS = {
 export const ClientDataGrid:FC<Props> = ({ data }) => {
 
   const rows: GridRowsProp  = data.map( client => ({
-    id         : client.companyName,
+    id         : client._id,
     name       : client.name, 
     lastName   : client.lastName,
     email      : client.email,

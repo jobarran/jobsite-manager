@@ -1,6 +1,7 @@
 
 
 export interface IClient {
+    _id        : string;
     idCompany  : string;
     name       : string; 
     lastName   : string;

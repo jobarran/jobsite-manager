@@ -25,19 +25,19 @@ export const ProjectSwitch:FC<Props> = ({checked, onChange, label }) => {
                     sx={{
                         mt: 1,
                         ".MuiSwitch-thumb": {
-                            backgroundColor: theme.palette.info.main
-                            },
-                            ".MuiSwitch-track": {
-                            backgroundColor: theme.palette.info.main
-                            },
-                            "& .MuiSwitch-switchBase": {
-                            "&.Mui-checked": {
-                                "+ .MuiSwitch-track": {
                                 backgroundColor: theme.palette.primary.main
-                                },
-                                ".MuiSwitch-thumb": {
+                            },
+                        ".MuiSwitch-track": {
                                 backgroundColor: theme.palette.primary.main
-                                }
+                            },
+                        "& .MuiSwitch-switchBase": {
+                        "&.Mui-checked": {
+                            "+ .MuiSwitch-track": {
+                                backgroundColor: theme.palette.secondary.main
+                            },
+                            ".MuiSwitch-thumb": {
+                                backgroundColor: theme.palette.secondary.main
+                        }   
                             }
                             }
                     }}

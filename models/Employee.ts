@@ -3,7 +3,7 @@ import mongoose, { Schema, model, Model } from 'mongoose'
 
 
 const employeelSchema = new Schema({
-    idCompany : { type: String, required: true },
+    idCompany  : { type: String, required: true },
     name       : { type: String, required: true },
     lastName   : { type: String, required: true },
     idNumber   : { type: String, required: true, unique: true },

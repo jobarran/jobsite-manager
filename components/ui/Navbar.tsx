@@ -7,6 +7,7 @@ import { AuthContext } from '@/context/auth';
 import { AvatarIcon } from '.';
 import { CompanyContext } from '@/context';
 import { capitalizaAndAddSpaces } from '../../utils/capitalizaAndAddSpaces';
+import { grey } from '@mui/material/colors';
 
 
 export const Navbar = () => {
@@ -24,9 +25,8 @@ export const Navbar = () => {
             <IconButton
                 size="large"
                 edge="start"
-                
                 aria-label="menu"
-                sx={{ mr: 2, color: theme.palette.primary.main }}
+                sx={{ mr: 2, color:grey[50]}}
                 onClick={ toggleSideMenu }
             >
                 <MenuOutlinedIcon />

@@ -1,7 +1,7 @@
 import { Avatar, Box, Divider, FormControlLabel, Grid, IconButton, Typography } from '@mui/material';
 import { ProjectLayout } from "@/components/layouts";
 import { useEmployees, useUsers } from '@/hooks';
-import { EmployeeUserList, EmployeeWorkersDataGrid } from '@/components/Employee';
+import { EmployeeAddModal, EmployeeUserList, EmployeeWorkersDataGrid } from '@/components/Employee';
 import { useClients } from '../../hooks/useClients';
 import { CustomDataGrid } from '../DataGrid';
 import { ClientAddModalNewClient, ClientDataGrid } from '@/components/Client';
@@ -23,7 +23,7 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
     const [filteredData, setSearch, clearSearch, setNewData] = useQuickSearch<any>(employees);
     const [searchValue, setSearchValue] = useState('');
     const [isClientMutating, setIsClientMutating] = useState(false) 
-    const [openClientModal, setOpenClientModal] = useState(false)
+    const [openEmployeeModal, setOpenEmployeeModal] = useState(false)
          
 
     useEffect(() => {
@@ -42,64 +42,69 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
         setSearchValue('');
     };
 
-    const handleOpenNewClientModal = () => {
-        setOpenClientModal(true)
+    const handleOpenNewUserModal = () => {
+        setOpenEmployeeModal(true)
     }
 
-    const handleCloseNewClientModal = () => {
-        setOpenClientModal(false)
+    const handleCloseEmployeeModal = () => {
+        setOpenEmployeeModal(false)
     }
 
 
 
     return (
         <>
+
+            <EmployeeAddModal
+                openEmployeeModal={openEmployeeModal}
+                handleCloseEmployeeModal={handleCloseEmployeeModal}
+                setIsEmployeeMutating={setIsClientMutating}
+            />
+            <Grid
+                container
+                alignItems='center'
+                display="flex"
+                direction="column"
+            >
                 <Grid
                     container
-                    alignItems='center'
-                    display="flex"
-                    direction="column"
+                    maxWidth={800}
+                    alignItems="center"
+                    justifyContent="center"
                 >
-                    <Grid
-                        container
-                        maxWidth={800}
-                        alignItems="center"
-                        justifyContent="center"
-                    >
-                        <EmployeeUserList users={users}/>
-                        
-                        <QuickSearch
-                            searchValue={searchValue}
-                            handleSearchChange={handleSearchChange}
-                            handleClearSearch={handleClearSearch}
-                        /> 
+                    <EmployeeUserList users={users}/>
+                    
+                    <QuickSearch
+                        searchValue={searchValue}
+                        handleSearchChange={handleSearchChange}
+                        handleClearSearch={handleClearSearch}
+                    /> 
 
-                        <Box
-                            width='100%'
-                            sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                alignContent: 'center',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                mt: 1
-                            }}
-                        >
-                            
-                            <FormControlLabel
-                                sx={{m:1}}
-                                control={<IconButton onClick={handleOpenNewClientModal} color="info" aria-label="add to shopping cart"><AddBoxIcon /></IconButton>}
-                                label={<Typography sx={{ fontSize: 12 }}> Add new </Typography> }
-                                labelPlacement="bottom"
-                            />
-                            
-                            
-                            <EmployeeWorkersDataGrid data={filteredData} /> 
-                            
-                        </Box>
-                    </Grid>
+                    <Box
+                        width='100%'
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignContent: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            mt: 1
+                        }}
+                    >
+                        
+                        <FormControlLabel
+                            sx={{m:1}}
+                            control={<IconButton onClick={handleOpenNewUserModal} color="info" aria-label="add to shopping cart"><AddBoxIcon /></IconButton>}
+                            label={<Typography sx={{ fontSize: 12 }}> Add new </Typography> }
+                            labelPlacement="bottom"
+                        />
+                        
+                        <EmployeeWorkersDataGrid data={filteredData} /> 
+                        
+                    </Box>
                 </Grid>
-    </>
+            </Grid>
+        </>
     )
 }
   

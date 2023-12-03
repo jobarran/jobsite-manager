@@ -7,27 +7,26 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: "#fa7266",
-      light: "#FEE5E6",
-      dark: '#670000'
+      main: '#2c4674',
     },
     secondary: {
-      main: '#707072',
-      light: '#d2d9d7',
-      dark: '#29292b'
-    },
-    info: {
-      main: '#2C4674',
-      light: '#ffffff',
-      dark: '#2C4674'
+      main: '#fa7266',
     },
     warning: {
-      main: '#ffd264 ',
-      light: '#ffffff',
-      dark: '#2C4674'
+      main: '#ffd264',
     },
     background: {
-      default: "#f7f9fa"
+      default: '#f7f9fa',
+    },
+    error: {
+      main: '#ee4238',
+    },
+    success: {
+      main: '#61ba61',
+    },
+    info: {
+      main: '#2c4674',
+      light: '#ffffff',
     },
   },
 
@@ -37,18 +36,18 @@ export const lightTheme = createTheme({
         underline: 'none',
       },
     },
-    MuiAppBar: {
-      defaultProps: {
-        position: 'fixed',
-      },
-      styleOverrides: {
-        root: {
-          backgroundColor: '#2C4674',
-          height: 45,
-          boxShadow: '0px 1px 5px #d8d8d8'
-        },
-      }
-    },
+    // MuiAppBar: {
+    //   defaultProps: {
+    //     position: 'fixed',
+    //   },
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: '#2C4674',
+    //       height: 45,
+    //       boxShadow: '0px 1px 5px #d8d8d8'
+    //     },
+    //   }
+    // },
     MuiTypography: {
       styleOverrides: {
         h1: {

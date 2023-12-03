@@ -1,8 +1,16 @@
-import { Avatar, Divider, Grid, IconButton, Typography } from '@mui/material';
 import { ProjectLayout } from "@/components/layouts";
-import { useUsers } from '@/hooks';
+import { dbClient } from "@/database";
+import { IClient } from "@/interfaces";
+import { GetServerSideProps, NextPage } from "next";
 
-export const EmployeePage = () => {
+
+interface Props {
+    client: IClient
+}
+
+export const EmployeePage: NextPage<Props> = ({ client }) => {
+
+
 
     return (
         <>
@@ -11,12 +19,34 @@ export const EmployeePage = () => {
             pageDescription={"The construction tool"}
             >
 
-            Empleado nombre
+            {client.companyName}
 
             </ProjectLayout>
     </>
     )
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res, query }) => {
+
+    const { id = '' } = query;
+    const client = await dbClient.getClientById( id.toString() );
+    console.log(client)
+
+    if ( !client ) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
+  
+    return {
+        props: { 
+          client: client
+         }
+    }
+  }
   
 
 export default EmployeePage
