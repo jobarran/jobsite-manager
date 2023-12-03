@@ -64,18 +64,21 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
             <Grid item xs={12} height='100%'>
                 <Card sx={{ boxShadow: 0 }} >
                     <Grid container>
-                        <Grid item xs={3}>
+                        <Grid item xs={2} sm={3}>
                             <Box  width='100%'>
                                 <nav aria-label="main mailbox folders">
                                     <List>
                                         {
                                             EmployeeProfileMenu.map(employee => (
-                                                <ListItem disablePadding key={employee.name}>
-                                                    <ListItemButton>
-                                                        <ListItemIcon>
-                                                            <employee.avatar/>
+                                                <ListItem disablePadding key={employee.name} >
+                                                    <ListItemButton >
+                                                        <ListItemIcon >
+                                                            <employee.avatar sx={{ fontSize:{xs:27, sm:22}, mr:2}}/>
                                                         </ListItemIcon>
-                                                        <ListItemText primary={employee.name} />
+                                                        <ListItemText
+                                                            primary={employee.name}
+                                                            sx={{display:{xs:'none', sm:'flex'}}}
+                                                        />
                                                     </ListItemButton>
                                                 </ListItem>
                                             ))
@@ -84,7 +87,7 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
                                 </nav>
                             </Box>
                         </Grid> 
-                        <Grid item xs={9}>
+                        <Grid item xs={10} sm={9}>
                             <Grid
                                 container
                                 margin={2}

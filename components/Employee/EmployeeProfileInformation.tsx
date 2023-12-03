@@ -76,7 +76,7 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
             alignItems="center"
             margin={1}
         >
-            <Box>
+            <Box sx={{display:{xs:'none', md:'flex'}}}>
                 <Typography variant='body1' noWrap >
                     {capitalizeCamelCase(item.name)}:
                 </Typography>
@@ -85,7 +85,7 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
             <TextField
                 value={`${values[item.name]}`}
                 size="small"
-                sx={{ml:3, width:'100%'}}
+                sx={{ml:{xs:1, sm:3}, width:'100%'}}
                 onChange={handleInputChange(item.name)}
                 multiline={item.name === 'description'}
                 rows={2}
@@ -93,7 +93,7 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
             />
                 {
                     isUpdating
-                    ? <CircularProgress size="1.5rem"/>
+                    ? <CircularProgress size="1.5rem" sx={{mr:7, ml:3}}/>
                     :
                         isEditable
                         ? 
