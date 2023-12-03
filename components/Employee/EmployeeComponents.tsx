@@ -6,11 +6,12 @@ import { useClients } from '../../hooks/useClients';
 import { CustomDataGrid } from '../DataGrid';
 import { ClientAddModalNewClient, ClientDataGrid } from '@/components/Client';
 import useQuickSearch from '@/hooks/useQuickSearch';
-import { FC, useEffect, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { FullScreenLoading, QuickSearch } from '@/components/ui';
 import { ProjectIcon } from '../Project';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { IUser } from '@/interfaces';
+import { UiContext } from '@/context';
 
 interface Props {
     employees: any,
@@ -24,12 +25,12 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
     const [searchValue, setSearchValue] = useState('');
     const [isClientMutating, setIsClientMutating] = useState(false) 
     const [openEmployeeModal, setOpenEmployeeModal] = useState(false)
-         
+    const { isDataMutating } = useContext( UiContext )        
 
     useEffect(() => {
         mutate()
         setNewData(employees)
-    }, [isClientMutating]) 
+    }, [isDataMutating]) 
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;

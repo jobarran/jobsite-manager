@@ -8,8 +8,6 @@ export const getClientById = async (id: string): Promise<IClient | null>  => {
     await db.connect()
     const client = await Client.findOne({ _id:id })
 
-    console.log(client)
-
     if ( !client ) {
         return null;
     }

@@ -26,8 +26,6 @@ export const EmployeeProfileData:FC<Props> = ({employee}) => {
         
         var date = new  Date()
         var newDate = (date.getFullYear() + '-' + date.getMonth()) + '-' + date.getDate()
-        console.log(employee.entry)
-        console.log(newDate)
         return getSeniority(employee.entry)
     }
     

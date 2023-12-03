@@ -42,8 +42,6 @@ export const ProjectAddModalNewClient:FC<Props> = ({ openClientModal, handleClos
                 description: data.description
   
             })
-
-            console.log(submitted)
   
             if (submitted.statusText === 'OK') {
                 onCloseModal()

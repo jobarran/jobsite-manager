@@ -7,6 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import CircularProgress from '@mui/material/CircularProgress';
 import { jobSiteManagementApi } from "@/api";
 import { capitalizeCamelCase } from "@/utils";
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 interface Props {
@@ -22,26 +23,27 @@ interface FormValues {
 
 export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) => {
 
+    const [savedValues, setSavedValues] = useState(values)
     const [isEditable, setIsEditable] = useState(false)
     const [isUpdating, setIsUpdating] = useState(false)
 
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const updatedValues: FormValues = { ...values, [item.name]: event.target.value };
-        setValues(updatedValues);
+    const handleInputChange = (fieldName: string) => (event: ChangeEvent<HTMLInputElement>) => {
+        const updatedValues: FormValues = { ...values, [fieldName]: event.target.value };        setValues(updatedValues);
       };
 
-    const handleEdit = async () => {
-        if (!isEditable) {
+    const handleEdit = async (fieldName: string) => {
+        if (!isEditable && item.editable) {
             setIsEditable(true)
         } else {
             setIsUpdating(true)
             try {
                 const submitted = await jobSiteManagementApi.put(`/employee`, {
-                    values
+                    ...savedValues,
+                    [fieldName]: values[fieldName]
                 })  
-                console.log(submitted.statusText)
                 if (submitted.statusText === 'OK') {
+                    setSavedValues(values)
                     setIsEditable(false)
                     setTimeout(() => {
                         setIsUpdating(false)
@@ -54,6 +56,14 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
                 }, 750);
             }
         }
+    }
+
+    const handleCancelEdit = (fieldName: string) => {
+        setValues({
+            ...values,
+            [fieldName]: savedValues[fieldName]
+        })
+        setIsEditable(false)
     }
     
 
@@ -76,27 +86,43 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
                 value={`${values[item.name]}`}
                 size="small"
                 sx={{ml:3, width:'100%'}}
-                onChange={handleInputChange}
+                onChange={handleInputChange(item.name)}
                 multiline={item.name === 'description'}
                 rows={2}
-                disabled={!isEditable}
+                disabled={ !isEditable }
             />
-            <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={handleEdit}
-                sx={{mr:5, ml:2}}
-            >
                 {
                     isUpdating
-                    ? 
-                            <CircularProgress size="1.5rem"/>
+                    ? <CircularProgress size="1.5rem"/>
                     :
                         isEditable
-                        ? <SaveIcon />
-                        : <EditIcon />
+                        ? 
+                        <Box
+                            display="flex"
+                            flexDirection="row"
+                            alignItems="center"
+                        >
+                            <IconButton
+                                color="primary"
+                                onClick={()=>handleEdit(item.name)}
+                                disabled={!item.editable}
+                                sx={{ml:1}}
+                            ><SaveIcon/></IconButton>
+                            <IconButton
+                                color="primary"
+                                onClick={()=>handleCancelEdit(item.name)}
+                                disabled={!item.editable}
+                                sx={{mr:1}}
+                            ><ClearIcon color="error"/></IconButton>
+                        </Box>
+                        : 
+                        <IconButton
+                            color="primary"
+                            onClick={()=>handleEdit(item.name)}
+                            sx={{mr:5, ml:2}}
+                            disabled={!item.editable}
+                        ><EditIcon/></IconButton>
                 }
-            </IconButton>
             <Box sx={{pr:{xs:'none', lg:10}}}></Box>
         </Box>
 

@@ -10,6 +10,8 @@ import { CustomBreadCrumbs } from '@/components/ui';
 import { useRouter } from 'next/router';
 import { EmployeeProfileData, EmployeeProfileSettings } from '@/components/Employee';
 import { useEmployees } from '@/hooks';
+import { useContext, useState } from 'react';
+import { UiContext } from '@/context';
 
 interface Props {
     employee: IEmployee
@@ -17,9 +19,8 @@ interface Props {
 
 export const EmployeePage:NextPage<Props> = ({employee}) => {
 
-    const theme = useTheme()
-    const router = useRouter()
-    const { mutate } = useEmployees(`/employee`)
+    const { toggleDataMutating } = useContext( UiContext )
+    const [values, setValues] = useState(employee)
 
 
     const breadcrumbsRef = [
@@ -39,9 +40,12 @@ export const EmployeePage:NextPage<Props> = ({employee}) => {
 
             <Grid container spacing={2}>
                 
-                <EmployeeProfileData employee={employee}/>
-                <EmployeeProfileSettings employee={employee} mutate={mutate}
-/>
+                <EmployeeProfileData employee={values}/>
+                <EmployeeProfileSettings
+                    toggleDataMutating={toggleDataMutating}
+                    values={values}
+                    setValues={setValues}
+                />
   
             </Grid>
 

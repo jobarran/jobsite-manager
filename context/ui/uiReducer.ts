@@ -5,6 +5,7 @@ type UiActionType =
 | { type: '[UI] - ToggleName' }
 | { type: '[UI] - Update Active Project', payload: IProject | undefined }
 | { type: '[UI] - ToggleProject'}
+| { type: '[UI] - dataMutate'}
 
 export const uiReducer = ( state:UiState, action: UiActionType): UiState => {
 
@@ -18,6 +19,11 @@ export const uiReducer = ( state:UiState, action: UiActionType): UiState => {
             return {
                 ...state,
                 isProjectTable: !state.isProjectTable
+            }
+        case '[UI] - dataMutate':
+            return {
+                ...state,
+                isDataMutating: !state.isDataMutating
             }
         // case '[UI] - Update Active Project':
         //     return {

@@ -52,12 +52,12 @@ const editEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
 
     try {
         await db.connect();
-        const employee = await Employee.findOne({idNumber: req.body.values.idNumber});
+        const employee = await Employee.findOne({idNumber: req.body.idNumber});
         if ( !employee ) {
             return res.status(400).json({message: 'There is no employee with that ID'});
         }
 
-        const updateEmployee = await Employee.findOneAndUpdate({idNumber: req.body.values.idNumber}, req.body.values, { new: true });
+        const updateEmployee = await Employee.findOneAndUpdate({idNumber: req.body.idNumber}, req.body, { new: true });
         res.status(200).json({ message: 'Employee Updated' });
 
         

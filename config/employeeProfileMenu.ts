@@ -32,56 +32,56 @@ export const EmployeeProfileMenu: Props[] = [
 
 interface InfoProps {
     name: string,
-    grid: number
+    editable: boolean
 }
 
 export const EmployeeProfileInformationConfig: InfoProps[] = [
     {
         name: "name",
-        grid: 4
+        editable: true
     },
     {
         name: "lastName",
-        grid: 4
+        editable: true
     },
     {
         name: "idNumber",
-        grid: 4
+        editable: false
     },
     {
         name: "status",
-        grid: 4
+        editable: true
     },
     {
         name: "project",
-        grid: 4
+        editable: true
     },
     {
         name: "phone",
-        grid: 4
+        editable: true
     },
     {
         name: "address",
-        grid: 4
+        editable: true
     },
     {
         name: "birth",
-        grid: 4
+        editable: true
     },
     {
         name: "entry",
-        grid: 4
+        editable: true
     },
     {
         name: "field",
-        grid: 4
+        editable: true
     },
     {
         name: "role",
-        grid: 4
+        editable: true
     },
     {
         name: "description",
-        grid: 4
+        editable: true
     },
 ]

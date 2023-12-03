@@ -15,16 +15,16 @@ import { useRouter } from 'next/router';
 
 
 interface Props {
-    employee: IEmployee
-    mutate: any
+    values: IEmployee
+    toggleDataMutating: ()=>void
+    setValues: any
 }
 
 
-export const EmployeeProfileSettings:FC<Props> = ({ employee, mutate }) => {
+export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, setValues }) => {
 
     const theme = useTheme()
     const router = useRouter()
-    const [values, setValues] = useState(employee)
     const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState({status: false, id:''})
 
     const handleOpenDeleteDialog = (id: string) => {
@@ -36,10 +36,12 @@ export const EmployeeProfileSettings:FC<Props> = ({ employee, mutate }) => {
             const submitted = await jobSiteManagementApi.delete(`/employee`, {
                 data: {values}
             })  
-            console.log(submitted.statusText)
             if (submitted.statusText === 'OK') {
                 setOpenDeleteConfirmationDialog({status:false, id:''})
-                mutate()
+                toggleDataMutating()
+                setTimeout(() => {
+                    toggleDataMutating()
+                }, 3000);
                 router.push('/employee')
             }
         } catch (error) {
@@ -56,8 +58,8 @@ export const EmployeeProfileSettings:FC<Props> = ({ employee, mutate }) => {
                 openDeleteConfirmationDialog={openDeleteConfirmationDialog}
                 setOpenDeleteConfirmationDialog={setOpenDeleteConfirmationDialog}
                 handleDeleteOm={() => handleDeleteEmployee()}
-                name={employee.name}
-                lastName={employee.lastName}
+                name={values.name}
+                lastName={values.lastName}
             />
             <Grid item xs={12} height='100%'>
                 <Card sx={{ boxShadow: 0 }} >
@@ -93,7 +95,7 @@ export const EmployeeProfileSettings:FC<Props> = ({ employee, mutate }) => {
                                 {
                                     EmployeeProfileInformationConfig.map(item => (
                                         <EmployeeProfileInformation
-                                            employee={employee}
+                                            employee={values}
                                             item={item}
                                             key={item.name}
                                             values={values}
@@ -108,7 +110,7 @@ export const EmployeeProfileSettings:FC<Props> = ({ employee, mutate }) => {
                                 variant='contained'
                                 startIcon={<DeleteIcon />}
                                 sx={{mb:3, ml:2}}
-                                onClick={()=>handleOpenDeleteDialog(employee.idNumber)}
+                                onClick={()=>handleOpenDeleteDialog(values.idNumber)}
                             >
                                 Delete
                             </Button>

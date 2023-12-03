@@ -30,7 +30,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res, query }
 
     const { id = '' } = query;
     const client = await dbClient.getClientById( id.toString() );
-    console.log(client)
 
     if ( !client ) {
         return {

@@ -8,13 +8,15 @@ import { IProject } from '../../interfaces/project';
 export interface UiState {
     isMenuOpen: boolean;
     activeProject: IProject | undefined,
-    isProjectTable: boolean
+    isProjectTable: boolean,
+    isDataMutating: boolean
 }
 
 const UI_INITIAL_STATE: UiState = {
     isMenuOpen: false,
     activeProject: undefined,
     isProjectTable: false,
+    isDataMutating: false,
 }
 
 interface Props {
@@ -63,13 +65,18 @@ export const UiProvider:FC<Props> = ({ children }) => {
         dispatch({ type: '[UI] - ToggleName' })
     }
 
+    const toggleDataMutating = () => {
+        dispatch({ type: '[UI] - dataMutate'})
+    }
+
     return (
         <UiContext.Provider value={{
             ...state,
 
             //Metodos
             toggleSideMenu,
-            toggleProject
+            toggleProject,
+            toggleDataMutating
         }}>
             { children }
         </UiContext.Provider>
