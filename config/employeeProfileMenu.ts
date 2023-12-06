@@ -5,6 +5,10 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useProjects } from '@/hooks';
+import { useContext } from 'react';
+import { UiContext } from '@/context';
+import { getAllProjects } from '@/database/dbProjects';
 
 interface Props {
     name: string,
@@ -32,56 +36,82 @@ export const EmployeeProfileMenu: Props[] = [
 
 interface InfoProps {
     name: string,
-    editable: boolean
+    editable: boolean,
+    type: string,
+    options: string[]
 }
 
 export const EmployeeProfileInformationConfig: InfoProps[] = [
     {
         name: "name",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "lastName",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "idNumber",
-        editable: false
+        editable: false,
+        type: 'TextField',
+        options: []
     },
     {
         name: "status",
-        editable: true
+        editable: true,
+        type: 'Select',
+        options: ['active', 'inactive']
     },
     {
         name: "project",
-        editable: true
+        editable: true,
+        type: 'Select',
+        options: []
     },
     {
         name: "phone",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "address",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "birth",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "entry",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
     {
         name: "field",
-        editable: true
+        editable: true,
+        type: 'Select',
+        options: []
     },
     {
         name: "role",
-        editable: true
+        editable: true,
+        type: 'Select',
+        options: []
     },
     {
         name: "description",
-        editable: true
+        editable: true,
+        type: 'TextField',
+        options: []
     },
 ]

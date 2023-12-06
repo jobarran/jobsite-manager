@@ -43,7 +43,7 @@ interface SeedEmployee {
     address?   : string; 
     birth?     : string; 
     entry      : string;
-    field      : string[];
+    field      : string;
     role       : string;
     description: string
 }
@@ -308,7 +308,7 @@ export const initialData: SeedData = {
             address: "123 Main St, Apt 101",
             birth: "1985-03-15",
             entry: "2020-05-10",
-            field: ["Carpenter"],
+            field: "carpenter",
             role: "craftsman",
             description: "Skilled in carpentry"
           },
@@ -323,7 +323,7 @@ export const initialData: SeedData = {
             address: "456 Elm St, Suite 201",
             birth: "1990-07-20",
             entry: "2019-11-25",
-            field: ["Welder", "Electrician"],
+            field: "welder",
             role: "craftsman",
             description: "Expert welder, electrician"
           },
@@ -337,7 +337,7 @@ export const initialData: SeedData = {
             phone: "555-555-5555",
             birth: "1978-09-02",
             entry: "2018-02-15",
-            field: ["Roofing Specialist"],
+            field: "electrician",
             role: "journeyman",
             description: "Eroofing specialist"
           },
@@ -352,7 +352,7 @@ export const initialData: SeedData = {
             address: "789 Oak Rd, Unit 301",
             birth: "1983-04-30",
             entry: "2022-07-05",
-            field: ["Electrician"],
+            field: "painter",
             role: "journeyman",
             description: "Skilled electrician"
           },
@@ -366,7 +366,7 @@ export const initialData: SeedData = {
             phone: "555-987-1234",
             birth: "1995-01-12",
             entry: "2021-04-18",
-            field: ["Painter"],
+            field: "plumber",
             role: "craftsman",
             description: "Talented painter, tiler, and construction designer"
           },
@@ -381,7 +381,7 @@ export const initialData: SeedData = {
             address: "567 Pine Ave, Suite 102",
             birth: "1992-12-05",
             entry: "2017-09-30",
-            field: ["Construction Supervisor"],
+            field: "supervisor",
             role: "foreman",
             description: "Experienced construction supervisor"
           },
@@ -396,7 +396,7 @@ export const initialData: SeedData = {
             address: "321 Cedar Ln, Apt 401",
             birth: "1986-08-17",
             entry: "2019-03-12",
-            field: ["Plumber"],
+            field: "mason",
             role: "laborer",
             description: "Skilled plumber"
           },
@@ -410,7 +410,7 @@ export const initialData: SeedData = {
             phone: "555-222-3333",
             birth: "1991-05-22",
             entry: "2020-10-08",
-            field: ["Painter"],
+            field: "tiler",
             role: "laborer",
             description: "Junior painter"
           },
@@ -425,7 +425,7 @@ export const initialData: SeedData = {
             address: "456 Birch St, Unit 501",
             birth: "1979-11-28",
             entry: "2018-06-20",
-            field: ["Plumber"],
+            field: "plumber",
             role: "journeyman",
             description: "Skilled plumber"
           },
@@ -439,7 +439,7 @@ export const initialData: SeedData = {
             phone: "555-555-1234",
             birth: "1980-02-14",
             entry: "2021-09-14",
-            field: ["Welder"],
+            field: "welder",
             role: "journeyman",
             description: "Talented welder"
           },
@@ -454,7 +454,7 @@ export const initialData: SeedData = {
             address: "789 Oak St, Suite 501",
             birth: "1982-06-10",
             entry: "2019-08-07",
-            field: ["Carpenter"],
+            field: "electrician",
             role: "laborer",
             description: "Junior carpenter"
           },
@@ -468,7 +468,7 @@ export const initialData: SeedData = {
             phone: "555-333-7777",
             birth: "1993-03-25",
             entry: "2020-12-30",
-            field: ["Mason"],
+            field: "painter",
             role: "laborer",
             description: "Junior mason"
           },
@@ -483,7 +483,7 @@ export const initialData: SeedData = {
             address: "123 Elm Rd, Apt 301",
             birth: "1987-04-18",
             entry: "2018-03-20",
-            field: ["Tiler"],
+            field: "mason",
             role: "journeyman",
             description: "Skilled tiler"
           },
@@ -497,7 +497,7 @@ export const initialData: SeedData = {
             phone: "555-222-1111",
             birth: "1994-11-05",
             entry: "2017-05-25",
-            field: ["Carpenter", "Painter"],
+            field: "mason",
             role: "laborer",
             description: "Junior carpenter, painter"
           },
@@ -512,7 +512,7 @@ export const initialData: SeedData = {
             address: "456 Cedar St, Suite 401",
             birth: "1989-02-20",
             entry: "2016-10-15",
-            field: ["Plumber"],
+            field: "supervisor",
             role: "journeyman",
             description: "Expert Plumber"
           },
@@ -526,7 +526,7 @@ export const initialData: SeedData = {
             phone: "555-777-5555",
             birth: "1984-07-12",
             entry: "2022-02-05",
-            field: ["Mason"],
+            field: "plumber",
             role: "laborer",
             description: "Junior mason"
           },
@@ -541,7 +541,7 @@ export const initialData: SeedData = {
             address: "789 Cedar Rd, Apt 301",
             birth: "1995-06-15",
             entry: "2022-11-30",
-            field: ["Tiler"],
+            field: "painter",
             role: "laborer",
             description: "Junior tiler"
           },
@@ -556,7 +556,7 @@ export const initialData: SeedData = {
             address: "456 Elm St, Apt 201",
             birth: "1983-09-20",
             entry: "2021-06-25",
-            field: ["Welder"],
+            field: "electrician",
             role: "journeyman",
             description: "Skilled welder"
           },
@@ -571,7 +571,7 @@ export const initialData: SeedData = {
             address: "123 Birch Rd, Suite 101",
             birth: "1980-12-10",
             entry: "2020-04-15",
-            field: ["Painter"],
+            field: "mason",
             role: "journeyman",
             description: "Junior painter"
           },
@@ -586,7 +586,7 @@ export const initialData: SeedData = {
             address: "567 Pine St, Unit 501",
             birth: "1986-08-12",
             entry: "2019-10-30",
-            field: ["Roofing Specialist"],
+            field: "carpenter",
             role: "craftman",
             description: "Skilled roofing specialist"
           },
@@ -601,7 +601,7 @@ export const initialData: SeedData = {
             address: "321 Oak Rd, Suite 201",
             birth: "1982-03-15",
             entry: "2018-05-20",
-            field: ["Plumber"],
+            field: "mason",
             role: "laborer",
             description: "Junior plumber"
           },
@@ -616,7 +616,7 @@ export const initialData: SeedData = {
             address: "456 Cedar St, Apt 101",
             birth: "1991-11-05",
             entry: "2017-09-25",
-            field: ["Electrician"],
+            field: "electrician",
             role: "journeyman",
             description: "Expert electrician"
           },
@@ -631,7 +631,7 @@ export const initialData: SeedData = {
             address: "789 Pine Rd, Suite 301",
             birth: "1989-05-30",
             entry: "2016-07-10",
-            field: ["Carpenter"],
+            field: "mason",
             role: "laborer",
             description: "Junior carpenter"
           },
@@ -646,7 +646,7 @@ export const initialData: SeedData = {
             address: "456 Elm Ave, Apt 501",
             birth: "1987-02-25",
             entry: "2015-12-30",
-            field: ["Construction Manager"],
+            field: "supervisor",
             role: "foreman",
             description: "Experienced construction manager"
           },
@@ -661,7 +661,7 @@ export const initialData: SeedData = {
             address: "123 Oak St, Suite 401",
             birth: "1984-06-20",
             entry: "2014-08-10",
-            field: ["Construction Supervisor"],
+            field: "tiler",
             role: "foreman",
             description: "Skilled Construction supervisor"
           },

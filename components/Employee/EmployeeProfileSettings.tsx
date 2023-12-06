@@ -3,7 +3,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import { red } from '@mui/material/colors';
 import { EmployeeProfileInformationConfig, EmployeeProfileMenu } from '../../config/employeeProfileMenu';
-import { EmployeeDeleteConfirmationModal, EmployeeProfileInformation } from '.';
+import { EmployeeDeleteConfirmationModal, EmployeeProfileInformation, EmployeeProfileInformationEdit } from '.';
 import { dbEmployee } from '@/database';
 import { GetServerSideProps } from 'next';
 import { IEmployee } from '@/interfaces';
@@ -23,13 +23,8 @@ interface Props {
 
 export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, setValues }) => {
 
-    const theme = useTheme()
     const router = useRouter()
     const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState({status: false, id:''})
-
-    const handleOpenDeleteDialog = (id: string) => {
-        setOpenDeleteConfirmationDialog({status: true, id: id})
-    }
 
     const handleDeleteEmployee = async () => {
         try {
@@ -88,35 +83,13 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
                             </Box>
                         </Grid> 
                         <Grid item xs={10} sm={9}>
-                            <Grid
-                                container
-                                margin={2}
-                                sx={{ display:{xs:'', md:'flex'} }}
-                                direction="column"
-                            >
 
-                                {
-                                    EmployeeProfileInformationConfig.map(item => (
-                                        <EmployeeProfileInformation
-                                            employee={values}
-                                            item={item}
-                                            key={item.name}
-                                            values={values}
-                                            setValues={setValues}
-                                           
-                                        />
-                                    ))
-                                }
-                            </Grid>
-                            <Button
-                                color='error'
-                                variant='contained'
-                                startIcon={<DeleteIcon />}
-                                sx={{mb:3, ml:2}}
-                                onClick={()=>handleOpenDeleteDialog(values.idNumber)}
-                            >
-                                Delete
-                            </Button>
+                            <EmployeeProfileInformationEdit
+                                values={values}
+                                setValues={setValues}
+                                handleDeleteEmployee={()=>handleDeleteEmployee()}
+                            />
+                            
                         </Grid>
                     </Grid>
                 </Card>
