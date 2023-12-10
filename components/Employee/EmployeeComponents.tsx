@@ -11,7 +11,7 @@ import { FullScreenLoading, QuickSearch } from '@/components/ui';
 import { ProjectIcon } from '../Project';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { IUser } from '@/interfaces';
-import { UiContext } from '@/context';
+import { CompanyContext, UiContext } from '@/context';
 
 interface Props {
     employees: any,
@@ -23,9 +23,11 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
 
     const [filteredData, setSearch, clearSearch, setNewData] = useQuickSearch<any>(employees);
     const [searchValue, setSearchValue] = useState('');
-    const [isClientMutating, setIsClientMutating] = useState(false) 
     const [openEmployeeModal, setOpenEmployeeModal] = useState(false)
-    const { isDataMutating } = useContext( UiContext )        
+    const { isDataMutating, toggleDataMutating } = useContext( UiContext )  
+    const { company } = useContext( CompanyContext )
+
+      
 
     useEffect(() => {
         mutate()
@@ -59,7 +61,9 @@ export const EmployeeComponents:FC<Props> = ({ employees, mutate, users }) => {
             <EmployeeAddModal
                 openEmployeeModal={openEmployeeModal}
                 handleCloseEmployeeModal={handleCloseEmployeeModal}
-                setIsEmployeeMutating={setIsClientMutating}
+                toggleDataMutating={toggleDataMutating}
+                employeeRoles={company?.settings.employeeRoles}
+                employeeFields={company?.settings.employeeFields}
             />
             <Grid
                 container

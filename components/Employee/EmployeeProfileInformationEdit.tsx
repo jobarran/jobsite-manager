@@ -45,13 +45,11 @@ export const EmployeeProfileInformationEdit:FC<Props> = ({values, setValues, han
     }
 
     const handleSelectChange = (newValue:any) => {
-        console.log(newValue)
         setSelected({...selected, [newValue.target.name] : newValue.target.value})
         setValue( newValue.target.name, newValue.target.value, { shouldDirty: true })
     }
 
     const handleDatePickerChange = (field:any, newValue:any) => {
-        console.log(newValue)
         if (dayjs.isDayjs(newValue)) {
             setValue(field, newValue.format('YYYY-MM-DD'), { shouldDirty: true });
         }
@@ -59,16 +57,13 @@ export const EmployeeProfileInformationEdit:FC<Props> = ({values, setValues, han
 
     const onSubmit: SubmitHandler<IEmployee> = async(data) => {
 
-
         try {
-            console.log({data: data})
             const submitted = await jobSiteManagementApi.put(`/employee`, {
                 ...data,
                 idNumber: values.idNumber
             }) 
 
             if (submitted.statusText === 'OK') {
-                console.log({submitted: data})
                 setValues({
                     ...data,
                     idNumber: values.idNumber
@@ -115,7 +110,7 @@ export const EmployeeProfileInformationEdit:FC<Props> = ({values, setValues, han
                 <EmployeeDeleteConfirmationModal
                     openDeleteConfirmationDialog={openDeleteConfirmationDialog}
                     setOpenDeleteConfirmationDialog={setOpenDeleteConfirmationDialog}
-                    handleDeleteOm={() => handleDeleteEmployee()}
+                    handleDeleteEmployee={() => handleDeleteEmployee()}
                     name={values.name}
                     lastName={values.lastName}
                 />

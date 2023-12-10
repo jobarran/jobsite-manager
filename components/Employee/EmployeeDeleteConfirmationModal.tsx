@@ -5,12 +5,12 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 interface Props {
     openDeleteConfirmationDialog: {status:boolean, id: string},
     setOpenDeleteConfirmationDialog: any,
-    handleDeleteOm: () => void
+    handleDeleteEmployee: () => void
     name: string,
     lastName: string,
 }
 
-export const EmployeeDeleteConfirmationModal:FC<Props> = ({name, lastName, handleDeleteOm, openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog}) => {
+export const EmployeeDeleteConfirmationModal:FC<Props> = ({name, lastName, handleDeleteEmployee, openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog}) => {
 
   
     const handleClose = () => {
@@ -39,7 +39,7 @@ export const EmployeeDeleteConfirmationModal:FC<Props> = ({name, lastName, handl
           </DialogContent>
           <DialogActions>
             <Button variant='outlined' onClick={handleClose}>Cancel</Button>
-            <Button variant='outlined' color='error' onClick={handleDeleteOm} autoFocus>
+            <Button variant='outlined' color='error' onClick={handleDeleteEmployee} autoFocus>
               Delete
             </Button>
           </DialogActions>

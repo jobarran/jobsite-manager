@@ -40,7 +40,6 @@ export const EmployeeProfileInformation:FC<Props> = ({item, values, setValues}) 
     const handleSelectChange = (event: SelectChangeEvent, fieldName:any) => {
         const updatedValues: FormValues = { ...values, [fieldName]: event.target.value };
         setValues(updatedValues);
-        console.log(updatedValues)
     };
 
     const handleEdit = async (fieldName: string) => {

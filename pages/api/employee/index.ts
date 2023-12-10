@@ -19,6 +19,8 @@ export default async function handler(
             return getEmployee( req, res )
         case 'PUT':
             return editEmployee( req, res )
+        case 'POST':
+            return createEmployee( req, res )
         case 'DELETE':
             return deleteEmployee( req, res )
         default:
@@ -66,6 +68,29 @@ const editEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
         return res.status(400).json({ message: 'Check server logs' });
     }
 
+}
+
+const createEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
+
+
+    try {
+        await db.connect();
+        const employeeInDB = await Employee.findOne({ idNumber: req.body.idNumber });
+        if ( employeeInDB ) {
+            console.log('Exists')
+            return res.status(400).json({message: 'There is already an employee with that ID'});
+        }
+        
+        const employee = new Employee( req.body );
+        await employee.save();
+        res.status(201).json( employee );
+
+
+    } catch (error) {
+        console.log(error);
+        await db.disconnect();
+        return res.status(400).json({ message: 'Check server logs' });
+     }
 }
 
 const deleteEmployee = async(req: NextApiRequest, res: NextApiResponse) => {
