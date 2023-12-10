@@ -41,9 +41,7 @@ export const EmployeeAddModal:FC<Props> = ({ openEmployeeModal, handleCloseEmplo
                 description: data.description
   
             })
-
-            console.log(submitted)
-  
+              
             if (submitted.statusText === 'OK') {
                 onCloseModal()
                 setIsEmployeeMutating(true)

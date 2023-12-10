@@ -13,7 +13,7 @@ const employeelSchema = new Schema({
     address    : { type: String, required: false},
     birth      : { type: String, required: false},
     entry      : { type: String, required: true },
-    field      : [{ type: String, required: false }],
+    field      : { type: String, required: false },
     role       : { type: String, required: false},
     description: { type: String, required: false },
 

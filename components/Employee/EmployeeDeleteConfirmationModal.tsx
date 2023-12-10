@@ -38,8 +38,8 @@ export const EmployeeDeleteConfirmationModal:FC<Props> = ({name, lastName, handl
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button color='error' onClick={handleDeleteOm} autoFocus>
+            <Button variant='outlined' onClick={handleClose}>Cancel</Button>
+            <Button variant='outlined' color='error' onClick={handleDeleteOm} autoFocus>
               Delete
             </Button>
           </DialogActions>

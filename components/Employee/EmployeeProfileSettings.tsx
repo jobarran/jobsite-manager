@@ -7,10 +7,11 @@ import { EmployeeDeleteConfirmationModal, EmployeeProfileInformation, EmployeePr
 import { dbEmployee } from '@/database';
 import { GetServerSideProps } from 'next';
 import { IEmployee } from '@/interfaces';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useContext, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { jobSiteManagementApi } from '@/api';
 import { useRouter } from 'next/router';
+import { CompanyContext } from '@/context';
 
 
 
@@ -25,7 +26,9 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
 
     const router = useRouter()
     const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState({status: false, id:''})
+    const { company } = useContext(CompanyContext)
 
+    
     const handleDeleteEmployee = async () => {
         try {
             const submitted = await jobSiteManagementApi.delete(`/employee`, {
@@ -48,14 +51,7 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
     
     return (
 
-        <Grid container item spacing={2} xs={12} lg={9}>
-            <EmployeeDeleteConfirmationModal
-                openDeleteConfirmationDialog={openDeleteConfirmationDialog}
-                setOpenDeleteConfirmationDialog={setOpenDeleteConfirmationDialog}
-                handleDeleteOm={() => handleDeleteEmployee()}
-                name={values.name}
-                lastName={values.lastName}
-            />
+        <Grid container item spacing={2} xs={12} md={9}>
             <Grid item xs={12} height='100%'>
                 <Card sx={{ boxShadow: 0 }} >
                     <Grid container>
@@ -84,12 +80,19 @@ export const EmployeeProfileSettings:FC<Props> = ({ values, toggleDataMutating, 
                         </Grid> 
                         <Grid item xs={10} sm={9}>
 
-                            <EmployeeProfileInformationEdit
-                                values={values}
-                                setValues={setValues}
-                                handleDeleteEmployee={()=>handleDeleteEmployee()}
-                            />
-                            
+                            {
+                            company
+                                ?
+                                <EmployeeProfileInformationEdit
+                                    values={values}
+                                    setValues={setValues}
+                                    handleDeleteEmployee={()=>handleDeleteEmployee()}
+                                    employeeRoles={company?.settings.employeeRoles}
+                                    employeeFields={company?.settings.employeeFields}
+                                />
+                                : <></>
+                            }
+    
                         </Grid>
                     </Grid>
                 </Card>

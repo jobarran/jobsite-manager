@@ -10,7 +10,6 @@ interface Props {
 export const EmployeeProfileDataSmall:FC<Props> = ({employee}) => {
 
     const seniority = () => {
-        
         var date = new  Date()
         var newDate = (date.getFullYear() + '-' + date.getMonth()) + '-' + date.getDate()
         return getSeniority(employee.entry)

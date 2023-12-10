@@ -11,7 +11,7 @@ export interface IEmployee {
     address?   : string; 
     birth?     : string; 
     entry      : string;
-    field      : string[];
+    field      : string;
     role       : string;
     description: string
 }
